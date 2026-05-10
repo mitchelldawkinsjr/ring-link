@@ -1,0 +1,13 @@
+name: MVP Integrity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run MVP checks
+        run: bash backend/scripts/check_mvp.sh
