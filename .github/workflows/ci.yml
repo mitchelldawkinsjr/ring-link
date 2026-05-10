@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+      - name: Validate composer
+        run: |
+          if [ -f composer.json ]; then composer validate --strict; else echo "composer.json not present yet"; fi
+      - name: Run tests
+        run: |
+          if [ -f artisan ]; then php artisan test; else echo "Laravel app scaffold pending"; fi

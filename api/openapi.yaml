@@ -1,0 +1,70 @@
+openapi: 3.1.0
+info:
+  title: RingLink API
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /auth/register:
+    post:
+      summary: Register a user
+      responses:
+        '201':
+          description: Created
+  /auth/login:
+    post:
+      summary: Login
+      responses:
+        '200':
+          description: Authenticated
+  /wrestlers:
+    get:
+      summary: Search wrestlers
+      parameters:
+        - in: query
+          name: state
+          schema: { type: string }
+        - in: query
+          name: wrestling_style
+          schema: { type: string }
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create wrestler profile
+      responses:
+        '201': { description: Created }
+  /promotions:
+    get:
+      summary: List promotions
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create promotion profile
+      responses:
+        '201': { description: Created }
+  /submissions:
+    post:
+      summary: Create submission
+      responses:
+        '201': { description: Created }
+  /bookings:
+    post:
+      summary: Create booking
+      responses:
+        '201': { description: Created }
+  /bookings/{booking}:
+    patch:
+      summary: Transition booking status
+      parameters:
+        - in: path
+          name: booking
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Updated }
+  /reviews:
+    post:
+      summary: Create verified booking review
+      responses:
+        '201': { description: Created }
+components: {}
