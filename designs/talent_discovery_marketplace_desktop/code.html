@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #080808;
+            color: #fbdbd7;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-surface {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .inner-glow-border {
+            border: 1px solid transparent;
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            background-image: linear-gradient(#121212, #121212), linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+        }
+        .reputation-ring {
+            background: conic-gradient(#0566d9 calc(var(--score) * 1%), #44302e 0);
+        }
+    </style>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-tint": "#ffb4a8", "on-secondary-fixed": "#400201", "surface-container-low": "#271815", error: "#ffb4ab", "on-tertiary-fixed-variant": "#5f4103", "on-background": "#f8dcd7", "secondary-fixed-dim": "#ffb4a8", "tertiary-fixed": "#ffdeab", surface: "#1d100d", "primary-container": "#d83f2e", "on-error": "#690005", "surface-variant": "#42312e", "primary-fixed-dim": "#ffb4a8", "surface-bright": "#473532", "on-primary-container": "#140000", "on-primary-fixed": "#410000", "inverse-surface": "#f8dcd7", primary: "#ffb4a8", "on-tertiary-fixed": "#281900", "on-tertiary-container": "#3a2600", "on-secondary-container": "#ff9f90", "on-tertiary": "#422c00", "inverse-primary": "#b52518", "error-container": "#93000a", "surface-container-lowest": "#180b08", tertiary: "#ebc078", "tertiary-fixed-dim": "#ebc078", "secondary-container": "#7f2f24", "surface-container": "#2b1c19", "on-secondary": "#5e170e", "surface-container-highest": "#42312e", "on-surface": "#f8dcd7", "outline-variant": "#5a403c", "on-primary-fixed-variant": "#920502", "surface-container-high": "#362623", "tertiary-container": "#b18a48", "on-secondary-fixed-variant": "#7c2d22", background: "#1d100d", secondary: "#ffb4a8", "on-primary": "#690000", "primary-fixed": "#ffdad4", "on-surface-variant": "#e3beb8", "on-error-container": "#ffdad6", "surface-dim": "#1d100d", outline: "#aa8984", "inverse-on-surface": "#3d2c29", "secondary-fixed": "#ffdad4"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "40px", "section-gap": "80px", unit: "8", gutter: "24px", "container-max": "1280px", "margin-mobile": "16px"}, fontFamily: {"headline-md": ["Anybody"], "label-bold": ["Inter"], "headline-xl": ["Anybody"], "display-lg": ["Anybody"], "headline-md-mobile": ["Anybody"], "body-lg": ["Inter"], "body-md": ["Inter"]}, fontSize: {"headline-md": ["32px", {lineHeight: "1.2", fontWeight: "700"}], "label-bold": ["14px", {lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700"}], "display-lg": ["72px", {lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "800"}], "headline-md-mobile": ["24px", {lineHeight: "1.2", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "body-md": ["16px", {lineHeight: "1.5", fontWeight: "400"}]}}}};</script>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- SideNavBar -->
+<nav class="h-screen w-72 flex-col fixed left-0 top-0 bg-surface/60 backdrop-blur-xl border-r border-white/10 shadow-2xl z-50 flex flex-col py-8">
+<div class="px-8 mb-10">
+<span class="font-headline-xl text-headline-xl text-primary font-black tracking-tighter">RingLink</span>
+<p class="text-on-surface-variant/60 font-label-bold text-xs mt-1">Elite Talent Portal</p>
+</div>
+<div class="flex-1 space-y-1">
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-bold">Home</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-primary border-r-4 border-primary bg-primary/10 font-bold active:scale-95 transform" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-bold">Search</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-label-bold">Bookings</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-bold">Roster</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-bold">Analytics</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-bold">Messages</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-bold">Settings</span>
+</a>
+</div>
+<div class="px-6 mt-auto">
+<button class="w-full py-4 bg-primary-container text-on-primary-container rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_circle</span>
+                Post New Event
+            </button>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="h-20 w-full fixed top-0 z-40 bg-surface/40 backdrop-blur-2xl border-b border-white/5 shadow-sm flex justify-between items-center pl-80 pr-margin-desktop">
+<div class="flex items-center gap-6 w-1/2">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/60">search</span>
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-full py-2 pl-12 pr-4 text-on-surface focus:outline-none focus:border-primary transition-colors" placeholder="Quick search talent, events, or rosters..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 cursor-pointer active:opacity-80 transition-opacity">
+<div class="text-right">
+<p class="font-label-bold text-on-surface text-sm">Shane McMahon</p>
+<p class="text-[10px] text-on-surface-variant/60 uppercase tracking-widest">Executive Promoter</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover border border-white/20" data-alt="A professional headshot of a mature male executive with a confident expression, wearing a tailored charcoal suit against a minimalist dark studio background. The lighting is cinematic with high contrast, reflecting a premium fintech and professional athletic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxs53pl3C3uutgrx6G5O5WSsX7rHyQH6Dw55M7wT8miK4-MyGlxk62Zefd55CNLq4FbSOvcjknP7x94jrLSa9Wd6lN4lsEB2lki54QB1ohQDSkXBjzWV6lyXRc4dahgNF_ZZYITPGL9N8no8cPVIUC7FZRGxH2XCPETl6pT9aB6n58wizowlQQpQxRRHPg1t88WHqAqAS9LbKwWTMOE9JTlqfD5lUq1f6ruAj6JrBpf4icOlXZVY57-TM390-K77ER8DljwYd0agE"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pl-72 pt-20 flex min-h-screen">
+<!-- Filter Sidebar -->
+<aside class="w-80 h-[calc(100vh-80px)] sticky top-20 border-r border-white/5 p-8 overflow-y-auto bg-surface-container-low/30">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md-mobile text-primary">Filters</h2>
+<button class="text-xs text-on-surface-variant uppercase tracking-widest font-bold hover:text-primary">Clear All</button>
+</div>
+<div class="space-y-8">
+<!-- Dropdown -->
+<div class="space-y-3">
+<label class="font-label-bold text-xs uppercase text-on-surface-variant tracking-widest">Wrestling Style</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-white/10 rounded-lg py-3 px-4 text-on-surface appearance-none focus:outline-none focus:border-primary transition-colors">
+<option>High Flyer</option>
+<option>Technician</option>
+<option>Powerhouse</option>
+<option>Hardcore</option>
+<option>Luchador</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Range Slider -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="font-label-bold text-xs uppercase text-on-surface-variant tracking-widest">Weight Class</label>
+<span class="text-xs text-primary font-bold">205 - 280 lbs</span>
+</div>
+<input class="w-full accent-primary h-1.5 bg-surface-variant rounded-full appearance-none cursor-pointer" type="range"/>
+</div>
+<!-- Radius / Location -->
+<div class="space-y-3">
+<label class="font-label-bold text-xs uppercase text-on-surface-variant tracking-widest">Location Radius</label>
+<div class="flex items-center gap-4">
+<div class="flex-1 relative">
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-lg py-3 px-4 text-on-surface focus:outline-none focus:border-primary transition-colors" type="text" value="New York, NY"/>
+</div>
+<div class="w-20 bg-surface-variant rounded-lg py-3 text-center font-bold text-sm">50 mi</div>
+</div>
+</div>
+<!-- Date Picker -->
+<div class="space-y-3">
+<label class="font-label-bold text-xs uppercase text-on-surface-variant tracking-widest">Availability</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-lg py-3 px-4 text-on-surface focus:outline-none focus:border-primary transition-colors" type="date"/>
+</div>
+</div>
+<!-- Toggle -->
+<div class="flex items-center justify-between p-4 rounded-xl bg-primary/5 border border-primary/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-bold text-sm">Verified Only</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</aside>
+<!-- Results Grid Area -->
+<section class="flex-1 p-margin-desktop overflow-y-auto">
+<div class="flex justify-between items-end mb-10">
+<div>
+<p class="text-primary font-label-bold uppercase tracking-[0.2em] text-xs mb-2">Discovery</p>
+<h1 class="font-display-lg text-headline-xl text-on-surface">Available Talent</h1>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-low p-1 rounded-lg border border-white/5">
+<button class="px-4 py-2 rounded-md bg-surface-variant text-on-surface font-bold text-sm">Grid</button>
+<button class="px-4 py-2 rounded-md hover:bg-surface-variant/50 text-on-surface-variant font-bold text-sm transition-colors">List</button>
+</div>
+</div>
+<!-- Bento/Dense Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-gutter">
+<!-- Talent Card 1 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] inner-glow-border transition-all duration-500 hover:scale-[1.02] hover:border-primary/30">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A powerful professional wrestler with an intense gaze and muscular physique posing in a high-contrast dark studio. Deep crimson and electric blue rim lighting highlights their silhouette against a smoky background. The image evokes a feeling of elite athleticism and high-stakes performance, consistent with a premium sports management platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmd6zoGqJVAeRdJhekb4wy5DHj1nGF5_81Wce_whGWGIeGrFdYH4k4nCPw_gIOocEfQG0sCk-APKqCRaWxexvzDJLeyGeyO2rmUa0oKqkKlm29du9guscZML_v85i66DlZnaMyv2R0Tcl2YDD45Z1_9dTY6YyC5_zCFTgZOk6AUToxay3osYA_mFHzJuqS0gkjl-JjXaLOqWxyeK8gqLhOgPnJltjuGv8dH-t4L0ECYkaATfekkjpj7eeyhNKt4O8EVAQDyx9xdVE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+<!-- Content Top -->
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-bold text-[10px] uppercase tracking-wider">Elite</span>
+<div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<!-- Content Bottom -->
+<div class="absolute bottom-0 left-0 w-full p-8 space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-white">The Titan</h3>
+<p class="text-on-surface-variant/80 font-label-bold text-sm">Heavyweight • Technician</p>
+</div>
+<div class="relative w-16 h-16 rounded-full flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(5,102,217,0.6)]" cx="32" cy="32" fill="transparent" r="28" stroke="#0566d9" stroke-dasharray="176" stroke-dashoffset="10" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="font-headline-md text-xl text-white">94</span>
+</div>
+</div>
+<!-- Quick Actions (Reveal on Hover) -->
+<div class="flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+<button class="flex-1 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold text-sm active:scale-95 transition-transform">Quick Book</button>
+<button class="flex-1 py-3 border border-secondary text-secondary rounded-lg font-bold text-sm hover:bg-secondary/10 active:scale-95 transition-transform">View Profile</button>
+</div>
+</div>
+</div>
+<!-- Talent Card 2 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] inner-glow-border transition-all duration-500 hover:scale-[1.02] hover:border-primary/30">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A dynamic action shot of a high-flying wrestler mid-leap, captured with a fast shutter speed to freeze the motion against a dark, dramatic arena background. The lighting is focused and aggressive, emphasizing the tension and peak physical performance. The overall mood is high-octane and professional, with a deep black and electric blue color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBysLg8gFDu6_f8wenSrKJ9ueLCuHP_3V7jssmVX1a8VT6q0cZ_CHqq0ZlSnhcjLxCQW_mghVxhuXf9W8yiqoX0dgUmcXq4y5jzqihO1SM2qrTk8OAQimZJAev9HWxULa1qnL2c2vEU_mRH8SyfTOq67CQ69AqRz6I9yOJyDCzS3U5anLVNNOt-D7HFDicyBsj6QEf_I0_GXTKqFPVIC3yPSHRsDAnWB420zi8di30QusgUJo6RljNDwK9KwBkRse3GFZkukmeE_I"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-bold text-[10px] uppercase tracking-wider">Rising Star</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-8 space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-white">Neon Ghost</h3>
+<p class="text-on-surface-variant/80 font-label-bold text-sm">Junior Heavyweight • High Flyer</p>
+</div>
+<div class="relative w-16 h-16 rounded-full flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(5,102,217,0.6)]" cx="32" cy="32" fill="transparent" r="28" stroke="#0566d9" stroke-dasharray="176" stroke-dashoffset="35" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="font-headline-md text-xl text-white">82</span>
+</div>
+</div>
+<div class="flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+<button class="flex-1 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold text-sm active:scale-95 transition-transform">Quick Book</button>
+<button class="flex-1 py-3 border border-secondary text-secondary rounded-lg font-bold text-sm hover:bg-secondary/10 active:scale-95 transition-transform">View Profile</button>
+</div>
+</div>
+</div>
+<!-- Talent Card 3 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] inner-glow-border transition-all duration-500 hover:scale-[1.02] hover:border-primary/30">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A portrait of a veteran wrestler with visible scars and a stern, weathered face, embodying years of high-stakes competition. The lighting is harsh and directional, creating deep shadows that emphasize the texture of the skin and the intensity of the gaze. The aesthetic is gritty yet luxurious, featuring a sophisticated palette of deep charcoal and muted crimson accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCumbqRL022-qV1Obu_1x5eTdpVYJKRd_BrwN1FWpQFNxj4FnfF4NwHOAActPP48fMk72XTLj0qRqtxObP6HyAb76vn-zL9wRZGGiZNKweTyFLVBFKeyn7rXdiNeiA880m6IbNKg9TSFDIPxjJHaO5aoYmxTNo54tZfPRpMIOI1kGW0jqZwrZz-f677uzfaABy8N9qxf60LuXSUniEECOKbMiiTO8axG6EhrVyLKbGT5BMaeZaGKH4g_MwMvOMZPhxj4NQOt4ZXVMc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-bold text-[10px] uppercase tracking-wider">Elite</span>
+<div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-8 space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-white">Iron King</h3>
+<p class="text-on-surface-variant/80 font-label-bold text-sm">Super Heavyweight • Powerhouse</p>
+</div>
+<div class="relative w-16 h-16 rounded-full flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(5,102,217,0.6)]" cx="32" cy="32" fill="transparent" r="28" stroke="#0566d9" stroke-dasharray="176" stroke-dashoffset="15" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="font-headline-md text-xl text-white">91</span>
+</div>
+</div>
+<div class="flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+<button class="flex-1 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold text-sm active:scale-95 transition-transform">Quick Book</button>
+<button class="flex-1 py-3 border border-secondary text-secondary rounded-lg font-bold text-sm hover:bg-secondary/10 active:scale-95 transition-transform">View Profile</button>
+</div>
+</div>
+</div>
+<!-- Talent Card 4 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] inner-glow-border transition-all duration-500 hover:scale-[1.02] hover:border-primary/30">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A female wrestler in a focused, athletic stance, wearing sleek professional gear. The lighting is cinematic, with a soft top-down glow that creates a clean, premium look. The background is a dark, expansive gym with high-end equipment blurred out, emphasizing the athlete as the central focus. The color palette is dominated by charcoal, deep reds, and crisp whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq1kCjrGt7r0_HBTCw8KiQUPBmG-yeciz_91Nwp9bafefpBU1EQ-X_FleuE5nZc2OKbRjDjCn-B0JjhmEi-KpRkhOiIQ9TCw3KlnH38chBaGvHoAgRGK9L1n9lmfIlJjUB4w28HukUXOzMK4-a78jwg0mncajRDe-XHRWg1x52uSTIxJVfCHSPWmKX1M1FDv3heAMdSAZHQFl-k94hx-wlgZwfyiuD6Sw4E3stSr7-LXarTASXC3D4YiFcen0SUipSoI2aHRshM2s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-bold text-[10px] uppercase tracking-wider">Elite</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-8 space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-white">Valkyrie</h3>
+<p class="text-on-surface-variant/80 font-label-bold text-sm">Lightweight • Submission Specialist</p>
+</div>
+<div class="relative w-16 h-16 rounded-full flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(5,102,217,0.6)]" cx="32" cy="32" fill="transparent" r="28" stroke="#0566d9" stroke-dasharray="176" stroke-dashoffset="20" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="font-headline-md text-xl text-white">88</span>
+</div>
+</div>
+<div class="flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+<button class="flex-1 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold text-sm active:scale-95 transition-transform">Quick Book</button>
+<button class="flex-1 py-3 border border-secondary text-secondary rounded-lg font-bold text-sm hover:bg-secondary/10 active:scale-95 transition-transform">View Profile</button>
+</div>
+</div>
+</div>
+<!-- Talent Card 5 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] inner-glow-border transition-all duration-500 hover:scale-[1.02] hover:border-primary/30">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A portrait of a masked wrestler in intricate, traditional Lucha Libre gear, featuring high-contrast metallic details that catch the light. The background is a moody, dark stadium with subtle lens flares from arena spotlights. The visual style is modern and high-performance, using a color palette of deep blacks and vibrant secondary accents of electric blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD85Omv9Wjw6-S1pTsgm5zWZFznhGWxAkuUddskxgs7LB8D7bARxAyfvAAeEjSUcgtK5HSkUMUUwx71lG3lr7q5H0HrT6JwzpMxUzfC7a8fJxPnXLzLkLDGro2AkHJA9bMgInvCEUC1Qs1srMB7xVkv3lBz7Ji-ft_K_rD1jYwvc9UJu59q2w4eZ_Zd0EF8tdZX2jz44Fn-jiBBlu5YRpjFTPrv0ZNxybHcuuw7cetwSqpisjTPe-F_4_CZPWe_47VxpvsvA2QEIwY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-bold text-[10px] uppercase tracking-wider">Rising Star</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-8 space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-white">El Rayo</h3>
+<p class="text-on-surface-variant/80 font-label-bold text-sm">Lightweight • Luchador</p>
+</div>
+<div class="relative w-16 h-16 rounded-full flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(5,102,217,0.6)]" cx="32" cy="32" fill="transparent" r="28" stroke="#0566d9" stroke-dasharray="176" stroke-dashoffset="40" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="font-headline-md text-xl text-white">78</span>
+</div>
+</div>
+<div class="flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+<button class="flex-1 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold text-sm active:scale-95 transition-transform">Quick Book</button>
+<button class="flex-1 py-3 border border-secondary text-secondary rounded-lg font-bold text-sm hover:bg-secondary/10 active:scale-95 transition-transform">View Profile</button>
+</div>
+</div>
+</div>
+<!-- Talent Card 6 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-[4/5] inner-glow-border transition-all duration-500 hover:scale-[1.02] hover:border-primary/30">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A gritty, cinematic close-up of a hardcore wrestler preparing for a match, taping their wrists with intense focus. The lighting is dramatic and low-key, with strong highlights reflecting off the sweat and athletic gear. The color scheme is a dark, sophisticated blend of charcoal and deep crimson, echoing the executive yet athletic feel of an elite sports marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYn66YEdMvDl_CqUwArgsimS8weU1bsn31_hUFIAwmOFFGS_blLmNVBQh0iRb79Oc1oSFuUQXFJ13t9F3tYEtMFJz4X2B4plicQYzawZY7NhqnbrGzfFHDCI1eGSlhWB0hi32YcXOl5O-hw-sWYAEDjECrkL_y84yGnALXaALj4GGW_TjcSSzCW_zlpLqJwgM-EJHQVJRwYztKc0-vAoQYyuDQzdkWo4g71y90lMLV-tURdtaaQFd3Z0bYHib2f-FfbX3bSj1bRco"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-bold text-[10px] uppercase tracking-wider">Elite</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-8 space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-white">Concrete</h3>
+<p class="text-on-surface-variant/80 font-label-bold text-sm">Heavyweight • Hardcore specialist</p>
+</div>
+<div class="relative w-16 h-16 rounded-full flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(5,102,217,0.6)]" cx="32" cy="32" fill="transparent" r="28" stroke="#0566d9" stroke-dasharray="176" stroke-dashoffset="12" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="font-headline-md text-xl text-white">93</span>
+</div>
+</div>
+<div class="flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+<button class="flex-1 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold text-sm active:scale-95 transition-transform">Quick Book</button>
+<button class="flex-1 py-3 border border-secondary text-secondary rounded-lg font-bold text-sm hover:bg-secondary/10 active:scale-95 transition-transform">View Profile</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

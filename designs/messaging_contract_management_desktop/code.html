@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RingLink | Messaging &amp; Contract Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #080808;
+            color: #fbdbd7;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .inner-glow-border {
+            border: 1px solid transparent;
+            background-image: linear-gradient(#121212, #121212), radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+    </style>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-tint": "#ffb4a8", "on-secondary-fixed": "#400201", "surface-container-low": "#271815", error: "#ffb4ab", "on-tertiary-fixed-variant": "#5f4103", "on-background": "#f8dcd7", "secondary-fixed-dim": "#ffb4a8", "tertiary-fixed": "#ffdeab", surface: "#1d100d", "primary-container": "#d83f2e", "on-error": "#690005", "surface-variant": "#42312e", "primary-fixed-dim": "#ffb4a8", "surface-bright": "#473532", "on-primary-container": "#140000", "on-primary-fixed": "#410000", "inverse-surface": "#f8dcd7", primary: "#ffb4a8", "on-tertiary-fixed": "#281900", "on-tertiary-container": "#3a2600", "on-secondary-container": "#ff9f90", "on-tertiary": "#422c00", "inverse-primary": "#b52518", "error-container": "#93000a", "surface-container-lowest": "#180b08", tertiary: "#ebc078", "tertiary-fixed-dim": "#ebc078", "secondary-container": "#7f2f24", "surface-container": "#2b1c19", "on-secondary": "#5e170e", "surface-container-highest": "#42312e", "on-surface": "#f8dcd7", "outline-variant": "#5a403c", "on-primary-fixed-variant": "#920502", "surface-container-high": "#362623", "tertiary-container": "#b18a48", "on-secondary-fixed-variant": "#7c2d22", background: "#1d100d", secondary: "#ffb4a8", "on-primary": "#690000", "primary-fixed": "#ffdad4", "on-surface-variant": "#e3beb8", "on-error-container": "#ffdad6", "surface-dim": "#1d100d", outline: "#aa8984", "inverse-on-surface": "#3d2c29", "secondary-fixed": "#ffdad4"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "40px", "section-gap": "80px", unit: "8", gutter: "24px", "container-max": "1280px", "margin-mobile": "16px"}, fontFamily: {"headline-md": ["Anybody"], "label-bold": ["Inter"], "headline-xl": ["Anybody"], "display-lg": ["Anybody"], "headline-md-mobile": ["Anybody"], "body-lg": ["Inter"], "body-md": ["Inter"]}, fontSize: {"headline-md": ["32px", {lineHeight: "1.2", fontWeight: "700"}], "label-bold": ["14px", {lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700"}], "display-lg": ["72px", {lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "800"}], "headline-md-mobile": ["24px", {lineHeight: "1.2", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "body-md": ["16px", {lineHeight: "1.5", fontWeight: "400"}]}}}};</script>
+</head>
+<body class="overflow-hidden">
+<!-- SideNavBar (Authority: JSON) -->
+<nav class="h-screen w-72 flex-col fixed left-0 top-0 bg-surface/60 backdrop-blur-xl border-r border-white/10 shadow-2xl flex py-8 z-50">
+<div class="px-8 mb-12">
+<h1 class="font-headline-xl text-headline-xl text-primary font-black tracking-tighter">RingLink</h1>
+<p class="text-on-surface-variant font-label-bold text-[12px] tracking-widest">ELITE TALENT PORTAL</p>
+</div>
+<div class="flex-1 flex flex-col">
+<!-- Home -->
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-bold">Home</span>
+</a>
+<!-- Search -->
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-bold">Search</span>
+</a>
+<!-- Bookings -->
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+<span class="font-label-bold">Bookings</span>
+</a>
+<!-- Roster -->
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-bold">Roster</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-bold">Analytics</span>
+</a>
+<!-- Messages (ACTIVE) -->
+<a class="flex items-center gap-4 py-3 px-6 text-primary border-r-4 border-primary bg-primary/10 font-bold active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="mail" style="font-variation-settings: 'FILL' 1;">mail</span>
+<span class="font-label-bold">Messages</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-bold">Settings</span>
+</a>
+</div>
+<div class="px-6 mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-headline-md text-[14px] flex items-center justify-center gap-2 hover:brightness-125 transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="add_circle">add_circle</span>
+                Post New Event
+            </button>
+</div>
+</nav>
+<!-- TopAppBar (Authority: JSON) -->
+<header class="h-20 w-full fixed top-0 z-40 bg-surface/40 backdrop-blur-2xl border-b border-white/5 shadow-sm flex justify-between items-center pl-80 pr-margin-desktop">
+<div class="flex items-center gap-6 w-1/3">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-full py-2.5 pl-12 pr-4 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-1 focus:ring-primary/50 text-label-bold" placeholder="Search talent, contracts, or venues..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-white/10 cursor-pointer active:opacity-80">
+<img alt="Pro Wrestler Profile" data-alt="A professional male athlete in his 30s with short hair and a focused expression, photographed in a dramatic low-key studio lighting with deep shadows and soft rim lighting. The style is high-contrast black and white, emphasizing his athletic features and professional demeanor. This image maintains a premium dark-mode aesthetic with surgical precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBeqp0f2lQhBgpeO3xQJ-6vqKviViTI_W3KLWs-H9vaNTrWBXqIs1dhfa3GBnMzh_Z7mrIOnDPM_uVqdsuHO5FyjABeFla4BAdLgLzgLb1Vq-SFo01sjn9FWSTMYo-SUATaKj8y3A5dZ3xYt2eqIhMl2T3GkzsUpJ2QSuGlVYg2MbHCOnu4Xu7DP3DlZ-sEcgqF31qaFH-vMMPXg7ViRpVPlV3IAEOdLJq9xG4dtz4m0aDe-_lOBS1t3_OaUAm7RR4Uuf_KHewsgY"/>
+</div>
+</div>
+</header>
+<!-- Main Messaging Interface (The Canvas) -->
+<main class="pl-72 pt-20 h-screen flex overflow-hidden">
+<!-- Pane 1: Conversations List -->
+<section class="w-80 border-r border-white/5 flex flex-col bg-surface-container-lowest/50">
+<div class="p-6 border-b border-white/5">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md text-body-lg text-on-surface">Inbox</h2>
+<span class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold">24 NEW</span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2 text-[12px] bg-primary/10 text-primary rounded-lg font-bold">Priority</button>
+<button class="flex-1 py-2 text-[12px] text-on-surface-variant hover:bg-surface-variant/20 rounded-lg">All</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<!-- Conversation Item (Active) -->
+<div class="p-5 border-l-4 border-primary bg-primary/5 cursor-pointer">
+<div class="flex gap-4">
+<div class="relative">
+<img alt="Shane McMahon" class="w-12 h-12 rounded-full border border-white/10" data-alt="A sophisticated middle-aged man in a tailored dark grey suit, radiating executive authority and business acumen. He is set against a dark, minimalist office background with soft bokeh. The lighting is cold and cinematic, emphasizing a premium fintech-meets-athletics aesthetic. The image is crisp and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8Y88OwLhkCZwQ5BuW-FQCQWrgCMh-kQv0Tf1xXygJ9NwFtfdndmF1ewQ1KCZh11N40ZIGjKtQx64-jPpmZ0b2TEL-05Y5dJAsIjRTnU8xVcF0ahCYGNcfumiQ7bFQfCv4qxNkDG1UsOryx3MVOv3MGNZ0MGBG7-XU-8-709Xa40RqghZ-w92A_ajxp2ejfya128l6AW2v8lxIXqSVmz1Q-poBtWyXNCFMjhYD14RY7MmnxlSxvY7EJQQ-LmEcHXkH3A9tDLUnDo0"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-secondary rounded-full border-2 border-background"></span>
+</div>
+<div class="flex-1 overflow-hidden">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-label-bold text-on-surface truncate">Shane McMahon</h3>
+<span class="text-[10px] text-on-surface-variant/60">2m ago</span>
+</div>
+<p class="text-[13px] text-on-surface truncate">The escrow is confirmed for Winter Warfront. Let's...</p>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_rgba(173,198,255,0.8)]"></span>
+<span class="text-[10px] text-secondary font-bold tracking-tight uppercase">Negotiating</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Conversation Item -->
+<div class="p-5 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors">
+<div class="flex gap-4">
+<div class="relative">
+<img alt="Stephanie Rose" class="w-12 h-12 rounded-full border border-white/10" data-alt="A powerful professional woman with an athletic build, wearing a sharp charcoal blazer over performance gear. Her expression is determined and confident. She stands in a high-tech gym setting with dark metal and glass elements. The lighting is high-contrast with deep reds and electric blue accents, maintaining the RingLink brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV59GY85wpc81-lS8TGZp8WBlGaCssI0F_xDqr20XSRwUNcdGssmNsuHBg1THv9lCBBJNWZ3YjSZEDirunnjButGoGz9-KGRjbT6_gCBeGk5I9ZGuKS-W7HzybwMUx1p_ovm3Y0uyiUtJ_RkgU331zL2Mr9_f0LmSlW_KBY3S1fHZdoa3j2WTMeUmMkOr6DZcp6nFlDTR6jvtUMKxL0NT9TtyT-BFcB8yLYlmIXwrd2_3e2LeLIBoufh2_rVPZlrTx7wscv1fle4k"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-label-bold text-on-surface-variant truncate">Stephanie Rose</h3>
+<span class="text-[10px] text-on-surface-variant/40">1h ago</span>
+</div>
+<p class="text-[13px] text-on-surface-variant/60 truncate">Can we look at the flight details again?</p>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+<span class="text-[10px] text-on-surface-variant/60 font-bold uppercase">Active Booking</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Conversation Item -->
+<div class="p-5 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors">
+<div class="flex gap-4">
+<div class="relative">
+<img alt="Paul Levesque" class="w-12 h-12 rounded-full border border-white/10" data-alt="A tall, muscular executive in a black turtleneck, appearing authoritative and seasoned. He is captured in a high-contrast cinematic portrait style. The atmosphere is professional and high-stakes, with subtle glass reflections in the background. The color palette is dominated by deep blacks and cool greys with a single crimson accent point." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg7xCKaBN08CgZ8BL5PJP8xOVSylWd967tAY7rOZT9-fhZWBcCRClu5sJNEpMa4qFTtLKblMJiwZWw0A489o6779Ks2aYOQ3iz10QNcORcCd2KBt4N3E5QeIvmde3u8tuMTmyPDLdRp6l9L5UB-oB-UZ2cqq7vT5JfOAhn4d48kWg2LiJzE9rTJZnJ42QFxjd5VtzI-AWdlKwL4q_b_1O6XVvZoY1SfY2EldolHqW1GHbiyWSzZAIhx6rKb2BC-hHZO-5KZk8n47M"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-label-bold text-on-surface-variant truncate">Paul Levesque</h3>
+<span class="text-[10px] text-on-surface-variant/40">3h ago</span>
+</div>
+<p class="text-[13px] text-on-surface-variant/60 truncate">Great match last night. Let's discuss April.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pane 2: Active Chat UI -->
+<section class="flex-1 flex flex-col relative">
+<!-- Chat Header -->
+<div class="h-20 border-b border-white/5 px-8 flex justify-between items-center glass-panel z-10">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-secondary p-0.5">
+<img alt="Shane McMahon Header" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI98QoZKkZzsfDYbOd8KgnqUoGVNpqhSE3dTpQgnJcnrLPGK7PdsGo3lZ_-BOdLOJGtSKV4mEIRtPeaIlZ4sXSFpow-ljuPJtX3L21K2S2ccqEgzITNcVnf6Mu-gAPfJ6cxBKqRdGFvSEoQAJEALthcS1HMGhFGznCqi2m_gqn5MWlWVtAIzYVJ-rOyKSmsAPn5i_V71URlaHRON4xF4OO7iTP-ekI9eE-ZNaE6h9iA-74hiy3WeiKVrnIBwwknneSeBuvkWRO1N4"/>
+</div>
+<div>
+<h2 class="font-headline-md text-body-lg text-on-surface leading-tight">Shane McMahon</h2>
+<p class="text-[11px] text-secondary font-bold tracking-widest uppercase">Apex Promotions • Executive Director</p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Chat History -->
+<div class="flex-1 overflow-y-auto p-8 space-y-6">
+<!-- Received Message -->
+<div class="flex gap-4 max-w-[80%]">
+<img alt="Avatar" class="w-8 h-8 rounded-full border border-white/10 flex-shrink-0 self-end" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1ZaDDcHXGG1iV4rOngwceZoPzPBeE5sNYOBBzYUF3DRQfyzk3KzFPu7_HgYrclx4p3dvO8YbqVJ7ggIMa0QTn7DSGbedsx8xyTsPiZ6BY9POPcAWGyBRQFwfeXSuxurpOtVMYfDwZ1IESPNYaXJgm3RJcx4Nf9_d5SvmkodfxldNRrv0vaUsBOQJQ88H2UEagGsjbaGzKREIN-ohSWtAwRzffnNc12nV1bR7HcPlg5xtEXHt3K5D-X_ny1DL8VuBEXbTncpsnwBw"/>
+<div class="space-y-2">
+<div class="p-4 bg-surface-variant/30 rounded-2xl rounded-bl-none border border-white/5 text-[14px] leading-relaxed text-on-surface">
+                            Hello! I've just reviewed the terms for Winter Warfront '24. Everything looks solid on our end. We've initiated the Stripe Escrow process for the $15k appearance fee.
+                        </div>
+<span class="text-[10px] text-on-surface-variant/40 ml-1">11:24 AM</span>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex flex-row-reverse gap-4 max-w-[80%] ml-auto">
+<div class="space-y-2 flex flex-col items-end">
+<div class="p-4 bg-primary text-on-primary rounded-2xl rounded-br-none font-medium text-[14px] leading-relaxed shadow-lg">
+                            Confirmed. I see the escrow notification. Looking forward to the Main Event. I'll have my legal team take one last look at the travel rider.
+                        </div>
+<span class="text-[10px] text-on-surface-variant/40 mr-1">11:28 AM • Read</span>
+</div>
+</div>
+<!-- File Attachment Sent -->
+<div class="flex flex-row-reverse gap-4 max-w-[80%] ml-auto">
+<div class="space-y-2 flex flex-col items-end">
+<div class="p-4 bg-surface-container-high rounded-2xl border border-white/5 flex items-center gap-4 w-full cursor-pointer hover:bg-surface-variant transition-colors">
+<div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</div>
+<div class="flex-1">
+<p class="text-on-surface text-[13px] font-bold">Rider_Addendum_V2.pdf</p>
+<p class="text-[11px] text-on-surface-variant/60">2.4 MB • PDF Document</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Status Indicator -->
+<div class="flex justify-center my-8">
+<div class="px-4 py-1 bg-white/5 rounded-full text-[10px] text-on-surface-variant/60 font-label-bold uppercase tracking-widest border border-white/5">
+                        Contract updated by Shane McMahon • 11:30 AM
+                    </div>
+</div>
+<!-- Received Message -->
+<div class="flex gap-4 max-w-[80%]">
+<img alt="Avatar" class="w-8 h-8 rounded-full border border-white/10 flex-shrink-0 self-end" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBxuovkUde2AZ_qtFmbLUIA3J3CYPvsGdm9RhRBRpfII7TaOnwSjkdwNpOUMHVEvqslUZukA8Yorz3pwuw7rcSLt_hi2up7bWrGXvEBXwZO_fZjr1RMYvFQQsrxK4tUQROYLOXZCWWtCY4gWx8SZUZ487jcviduvdZly54YLM8K-2X9Je9uW7V_SF11z66vK8KInBEw0b9KorMJ85_G_-32YOHX1tzZ19O3BfOMlNpULL5A0nZxcC-8oeiu1-2ulO1NgU8FBRJlo8"/>
+<div class="space-y-2">
+<div class="p-4 bg-surface-variant/30 rounded-2xl rounded-bl-none border border-white/5 text-[14px] leading-relaxed text-on-surface">
+                            The escrow is confirmed for Winter Warfront. Let's make it official once your team clears the rider.
+                        </div>
+<span class="text-[10px] text-on-surface-variant/40 ml-1">Just now</span>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-6 bg-surface-container-lowest border-t border-white/5">
+<div class="flex items-end gap-4 max-w-4xl mx-auto bg-surface-container-high rounded-2xl p-2 border border-white/5">
+<button class="p-3 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-[14px] py-3 text-on-surface placeholder:text-on-surface-variant/40 resize-none max-h-32" placeholder="Type a message..." rows="1"></textarea>
+<button class="p-3 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="mood">mood</span>
+</button>
+<button class="bg-primary p-3 rounded-xl text-on-primary shadow-lg hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Pane 3: Contract Sidebar (Authority Source for Details) -->
+<aside class="w-96 bg-surface-container border-l border-white/5 overflow-y-auto">
+<div class="p-8">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="description">description</span>
+<h2 class="font-headline-md text-body-lg text-on-surface">Contract Summary</h2>
+</div>
+<!-- Event Details Card -->
+<div class="inner-glow-border rounded-2xl p-6 mb-6">
+<div class="mb-4">
+<p class="text-[10px] text-on-surface-variant/60 font-label-bold uppercase tracking-widest mb-1">EVENT NAME</p>
+<h3 class="font-headline-md text-body-lg text-primary">Winter Warfront '24</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant" data-icon="calendar_today">calendar_today</span>
+<div>
+<p class="text-[13px] font-bold text-on-surface">December 15, 2024</p>
+<p class="text-[11px] text-on-surface-variant/60">Main Event • 8:00 PM EST</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant" data-icon="location_on">location_on</span>
+<div>
+<p class="text-[13px] font-bold text-on-surface">Madison Square Garden</p>
+<p class="text-[11px] text-on-surface-variant/60">New York, NY</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant" data-icon="sports_kabaddi">sports_kabaddi</span>
+<div>
+<p class="text-[13px] font-bold text-on-surface">Main Event Match</p>
+<p class="text-[11px] text-on-surface-variant/60">Opponent: TBA (Championship Match)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Financials & Escrow -->
+<div class="bg-surface-container-highest/40 rounded-2xl p-6 mb-6 border border-white/5">
+<p class="text-[10px] text-on-surface-variant/60 font-label-bold uppercase tracking-widest mb-4">FINANCIALS</p>
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="text-[11px] text-on-surface-variant/60">Appearance Fee</p>
+<p class="font-headline-md text-headline-md-mobile text-on-surface">$15,000.00</p>
+</div>
+<div class="text-right">
+<p class="text-[11px] text-on-surface-variant/60">Travel/Lodging</p>
+<p class="text-[13px] font-bold text-on-surface">All-Inclusive</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-secondary/10 rounded-xl border border-secondary/20">
+<span class="material-symbols-outlined text-secondary" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<div>
+<p class="text-[12px] font-bold text-secondary">Stripe Escrow: Funds Secured</p>
+<p class="text-[10px] text-secondary/70">ID: SEC-8823910-A</p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="space-y-3">
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-headline-md text-[14px] shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="draw">draw</span>
+                        SIGN CONTRACT
+                    </button>
+<button class="w-full py-4 bg-transparent border border-secondary text-secondary rounded-xl font-headline-md text-[14px] hover:bg-secondary/5 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit_note">edit_note</span>
+                        AMEND TERMS
+                    </button>
+</div>
+<div class="mt-8 pt-8 border-t border-white/5">
+<p class="text-[11px] text-on-surface-variant/40 leading-relaxed text-center italic">
+                        This digital contract is legally binding via RingLink SecureSign. By clicking Sign, you agree to the Terms of Service and Athlete Protection Policy.
+                    </p>
+</div>
+</div>
+</aside>
+</main>
+</body></html>

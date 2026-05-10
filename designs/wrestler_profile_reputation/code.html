@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-tint": "#ffb4a8", "on-secondary-fixed": "#400201", "surface-container-low": "#271815", error: "#ffb4ab", "on-tertiary-fixed-variant": "#5f4103", "on-background": "#f8dcd7", "secondary-fixed-dim": "#ffb4a8", "tertiary-fixed": "#ffdeab", surface: "#1d100d", "primary-container": "#d83f2e", "on-error": "#690005", "surface-variant": "#42312e", "primary-fixed-dim": "#ffb4a8", "surface-bright": "#473532", "on-primary-container": "#140000", "on-primary-fixed": "#410000", "inverse-surface": "#f8dcd7", primary: "#ffb4a8", "on-tertiary-fixed": "#281900", "on-tertiary-container": "#3a2600", "on-secondary-container": "#ff9f90", "on-tertiary": "#422c00", "inverse-primary": "#b52518", "error-container": "#93000a", "surface-container-lowest": "#180b08", tertiary: "#ebc078", "tertiary-fixed-dim": "#ebc078", "secondary-container": "#7f2f24", "surface-container": "#2b1c19", "on-secondary": "#5e170e", "surface-container-highest": "#42312e", "on-surface": "#f8dcd7", "outline-variant": "#5a403c", "on-primary-fixed-variant": "#920502", "surface-container-high": "#362623", "tertiary-container": "#b18a48", "on-secondary-fixed-variant": "#7c2d22", background: "#1d100d", secondary: "#ffb4a8", "on-primary": "#690000", "primary-fixed": "#ffdad4", "on-surface-variant": "#e3beb8", "on-error-container": "#ffdad6", "surface-dim": "#1d100d", outline: "#aa8984", "inverse-on-surface": "#3d2c29", "secondary-fixed": "#ffdad4"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "40px", "section-gap": "80px", unit: "8", gutter: "24px", "container-max": "1280px", "margin-mobile": "16px"}, fontFamily: {"headline-md": ["Anybody"], "label-bold": ["Inter"], "headline-xl": ["Anybody"], "display-lg": ["Anybody"], "headline-md-mobile": ["Anybody"], "body-lg": ["Inter"], "body-md": ["Inter"]}, fontSize: {"headline-md": ["32px", {lineHeight: "1.2", fontWeight: "700"}], "label-bold": ["14px", {lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700"}], "display-lg": ["72px", {lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "800"}], "headline-md-mobile": ["24px", {lineHeight: "1.2", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "body-md": ["16px", {lineHeight: "1.5", fontWeight: "400"}]}}}};</script>
+<style>
+        .glass-card {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .reputation-ring {
+            background: conic-gradient(from 0deg, #adc6ff 94%, transparent 0%);
+        }
+        .inner-glow {
+            border: 1px solid transparent;
+            background-image: linear-gradient(#1f0f0d, #1f0f0d), linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl border-b border-white/10 flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest flex items-center justify-center">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A minimalist silhouette of a professional wrestler's profile, set against a dark charcoal background. The lighting is dramatic and low-key, emphasizing a powerful athletic build. The color palette features deep blacks and dark grays, maintaining a premium sports brand aesthetic for an elite talent marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKVLxPBCatbE7hddXnVDZns_0ndOEf6yy7TH_Uq9T6AoFjbawU1D_IojwEJlXgdLZcOaCJUIY_yuyNa6kpil2p3aUOQ0Ykig1sCZ3iuC_XnFHtyTEqEy-XY9prExilYODcwBubOL3P10U5gLV6avyNW-iueDSrU8Aw5iuwAr66ujWhm58TByTBxz_VYC0Y-5kdOTBOe3gWBPtd77OObxTV2bhZzvHb97rUUQFS9ojnqCVKkouXFlM7RKZJ7T_R-bqQHsin1Dp5ZFU"/>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tighter uppercase">RingLink</span>
+</div>
+<button class="text-primary hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="mt-16">
+<!-- Hero Section -->
+<section class="relative h-[530px] w-full overflow-hidden">
+<img alt="Alex Steele Promo" class="w-full h-full object-cover object-top" data-alt="A high-contrast cinematic portrait of Alex Steele, a professional wrestler with an intense expression. He is positioned in a gritty, dark warehouse gymnasium with subtle atmospheric smoke. The lighting is harsh and dramatic, highlighting muscular definition and athletic power. The overall tone is aggressive yet premium, dominated by deep blacks and crimson highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz24MbfFIwz3WJdxfRMNLc-zaLJPifrNxlSxZBZo9m18AZMDI4I3f7Ddh8YbTFBturYXsSo_kly_PNNs7MRlpJMfRvqsSAhMVrphys3DVtjfVgEEZ2GBgDbcykYPwVffoQMsg02pwsFT84o1inu7GuX8i1Si34jjCF99xeSDlv8dLc5U9MNOLS5l96hiO1bR0IOytYrrxSR93Gawgi1BfQ-eYXfeKprFTiZr-Dqlr4DpbILFDd5JvBDg0VlWUzmfQm4iuFDChtXfg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-margin-mobile w-full">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                        Verified Wrestler
+                    </span>
+</div>
+<h1 class="font-display-lg text-headline-xl text-on-background leading-tight mb-1">Alex 'The Anvil' Steele</h1>
+<div class="flex items-center text-on-surface-variant gap-2">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="text-body-lg">Chicago, IL</span>
+</div>
+</div>
+</section>
+<!-- Reputation UI & Stats Grid -->
+<section class="px-margin-mobile -mt-8 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Reputation Card -->
+<div class="md:col-span-5 glass-card p-6 rounded-xl flex flex-col items-center text-center">
+<span class="text-label-bold uppercase tracking-widest text-on-surface-variant mb-6">Athlete Credibility Score</span>
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="absolute w-full h-full -rotate-90">
+<circle class="text-surface-container-highest" cx="80" cy="80" fill="transparent" r="74" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary drop-shadow-[0_0_8px_rgba(173,198,255,0.5)]" cx="80" cy="80" fill="transparent" r="74" stroke="currentColor" stroke-dasharray="465" stroke-dashoffset="28" stroke-width="8"></circle>
+</svg>
+<div class="flex flex-col items-center">
+<span class="font-headline-xl text-on-surface leading-none">94</span>
+<span class="text-secondary font-label-bold mt-1">PERCENTILE</span>
+</div>
+</div>
+<div class="mt-6">
+<span class="text-headline-md-mobile text-on-surface block">Elite Performer</span>
+<p class="text-body-md text-on-surface-variant mt-2 px-4">Top 5% for professional conduct and technical execution across major territories.</p>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="md:col-span-7 grid grid-cols-2 gap-4">
+<div class="inner-glow p-5 rounded-xl border border-white/5">
+<span class="text-label-bold text-on-surface-variant/60 block mb-1">STYLE</span>
+<span class="text-headline-md-mobile font-bold text-on-surface">Technical</span>
+</div>
+<div class="inner-glow p-5 rounded-xl border border-white/5">
+<span class="text-label-bold text-on-surface-variant/60 block mb-1">HEIGHT</span>
+<span class="text-headline-md-mobile font-bold text-on-surface text-primary">6'2"</span>
+</div>
+<div class="inner-glow p-5 rounded-xl border border-white/5">
+<span class="text-label-bold text-on-surface-variant/60 block mb-1">WEIGHT</span>
+<span class="text-headline-md-mobile font-bold text-on-surface">235 lbs</span>
+</div>
+<div class="inner-glow p-5 rounded-xl border border-white/5">
+<span class="text-label-bold text-on-surface-variant/60 block mb-1">EXPERIENCE</span>
+<span class="text-headline-md-mobile font-bold text-on-surface text-secondary">8 Years</span>
+</div>
+</div>
+</section>
+<!-- Media Section -->
+<section class="mt-section-gap px-margin-mobile">
+<h2 class="font-headline-md text-on-surface mb-6">Talent Media</h2>
+<div class="space-y-4">
+<!-- Video Reel -->
+<div class="relative w-full aspect-video rounded-xl overflow-hidden glass-card group">
+<img alt="Highlight Reel" class="w-full h-full object-cover" data-alt="A dynamic action shot of a wrestling ring under high-intensity arena lights. A wrestler is performing a dramatic aerial maneuver. The scene is full of energy, with blurred motion and vibrant spotlights cutting through the dark venue. The palette features deep crimsons and blacks with sharp white highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYCZ3eS6Z64Bh2zPvY31dNfHJJqtoplKpTeOG3MnVmdGU058O6qXS1-wn8Qgw4XarBN1xM0OBq4irQA5JKnpGr_vqEbG79WnC7NgoIgiwop_k4Rb1PcFBmpQ1Wsj90MiKABASmDTH2knVSt4V_cQTJJr7maXqLzrVit6GxDvaZV0v-Y4K75hzTh2LkCtMp2tuX1SYarKrFLgVLDLEMM08wkfAGMiGMJOQx3KaZwRqT5z44JcFFd97b1_Kk66NJob9qghUNOmJcHlE"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-all">
+<span class="material-symbols-outlined text-6xl text-on-primary-container" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<div class="absolute bottom-4 left-4">
+<span class="text-label-bold bg-primary-container px-3 py-1 rounded text-on-primary-container">HIGHLIGHT REEL 2024</span>
+</div>
+</div>
+<!-- Photo Gallery Grid -->
+<div class="grid grid-cols-3 gap-2">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container">
+<img alt="Action 1" class="w-full h-full object-cover" data-alt="A focused close-up of an athlete preparing in a dark gym environment. High-contrast lighting highlights grit and determination. Deep charcoal and dark red tones define the professional wrestling aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqRy9CgQtMpXVXl1vuYA3T0zx3qzPxnOG1HItZzhX-jU_inUrBO2-4dmRhLaePlt3D-CfEWAf26C3oNx0QzEtHgu49C9DgvkncMpxAUP0uQGJ7b2LlWCZpgo0bBgQxlJ6HrPEZGZYrtyE1osc7yWUQTq4ieocO-j44ikQdZyFl6fE5hZ3qv90GfG7CV0j2xyWyAogPp3Y5odo-gm0-DmSeCF_C7eOx3pmGE6HwSFxroEsbizSA1SdP0EP7eFLLTEvLylujuGqfZps"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container">
+<img alt="Action 2" class="w-full h-full object-cover" data-alt="A wide-angle shot of an empty wrestling ring in a dimly lit arena. The lighting is cinematic, with heavy shadows and sharp white beams. The atmosphere is tense and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmdUcGhxTbRPLkLNxZx9e3n0jWJMQJhK9y7jWqkYxQaBcPY17b3GYby2olui_y2YFBbHRZ4PgpDVJyYeXtg6lIjL_Dg1WBdcqG3BQadSV8sPAi30CaV9vC2aCJ7PVgi_JSL-qnk2j7YlnvKy5oS-MSt2yWco58H7axND3-VcIRUovw9KceiyfbMJ4Ix4sMfN_oZwR7v8B8sUOWbhYgEOTYuY35EV9GMNkNaJU1bTYpxAIbf92opPnB_YzpiEnciuAOyy00oUsZKfw"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container">
+<img alt="Action 3" class="w-full h-full object-cover" data-alt="Action photography of a wrestler's training regime in a dark studio. Sweaty, intense lighting with high contrast and deep blacks, punctuated by subtle crimson glows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbkGBxGMtAb9OsheCesiooA5wPbQUYHAhVw6g2m1tUCtVYNKbxdOXblEPCTN5DLQ_x11vdPdZKboRWtAycXJcGhLXlNVs7FuLVQfJqL2MgFwVtcqOZRGk5fpb8iZp-66CdwfqmoE7Yl5W0lA38WxBcwLa7wrUBr4WSmVTydaiJvj3LOjXMiplCIrDUNQd_xIDhFM72m2VcA6l-MEknM-fTl-QZsAWgfW-rIoWjxFMQGUcguVb5bsJq7WoxeOBzdAD3E2JlKiU5c7c"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Match History -->
+<section class="mt-section-gap px-margin-mobile">
+<div class="flex justify-between items-end mb-6">
+<h2 class="font-headline-md text-on-surface">Verified Match Reviews</h2>
+<span class="text-secondary text-label-bold">SEE ALL</span>
+</div>
+<div class="space-y-4">
+<!-- Review Card 1 -->
+<div class="glass-card p-5 rounded-xl border border-white/5">
+<div class="flex items-start justify-between mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded bg-white flex items-center justify-center overflow-hidden">
+<img alt="Promotion Logo" class="w-8 h-8 object-contain" data-alt="A minimalist logo for a sports promotion company. Clean lines, monochromatic black and white design with a powerful crest. Professional and corporate sporting aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY65a_Z7Izj_iKHl3ChM9Phm3qpDLdH-lgN9FHNHrfXRiQmnYmgkpidMc_4VriRefEI_MPcueo7gl-bssHMwzAD4SB_i6rheNVbt7dA9mUOB5EGBr83Z51xu2fgBYJD3alpg0-ss2e-CAPi1Q70K0Lx0nzitByRfEjwXsHdFc3jPY9iDADjTfB0r0qrSum_LdcRVVWYYzg1ObMn_WN9-NjuGdNXDYgjOQOqkKXK4T0Ece8LDbwv7I2vKan3YORdqnxuy7zcXDQOxU"/>
+</div>
+<div>
+<h4 class="font-label-bold text-on-surface">Apex Championship Wrestling</h4>
+<span class="text-body-md text-on-surface-variant">Winter Warfront '24</span>
+</div>
+</div>
+<div class="flex text-primary">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-highest/50 text-secondary border border-secondary/20 px-3 py-1 rounded-full text-[12px] font-bold">PROFESSIONALISM</span>
+<span class="bg-surface-container-highest/50 text-tertiary border border-tertiary/20 px-3 py-1 rounded-full text-[12px] font-bold">IN-RING PERFORMANCE</span>
+</div>
+</div>
+<!-- Review Card 2 -->
+<div class="glass-card p-5 rounded-xl border border-white/5 opacity-80">
+<div class="flex items-start justify-between mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded bg-white flex items-center justify-center overflow-hidden">
+<img alt="Promotion Logo" class="w-8 h-8 object-contain" data-alt="Corporate sports league emblem with sharp geometric shapes. Premium branding in a minimalist black and white style, conveying established authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA07WTAUJuMs9cj1xDEWBjK2_VImtYrH0I1Asua_DaG47pm7GcjUbDHkeFvF96z12b7Q7gSiFOU8CRlE7GOW0bfJ_QkgrTPyT6AuVtOVRCo7RekVu5N8e7QqcaorVcsk8M4HxXIYe-X4zdrrbWyQ62mCSxBNz7ykUKz4gj5QIANmP0r3iNmSasgHEbBMc1nxbbidEZ1qDWKMpa84YbAX_DeqFJHzHIU-hK5Is2faRrpNZO59xOWiUWLDzV6s-IRfksQiM-Ryw9RNJY"/>
+</div>
+<div>
+<h4 class="font-label-bold text-on-surface">Metropolis Pro Wrestling</h4>
+<span class="text-body-md text-on-surface-variant">Concrete Jungle</span>
+</div>
+</div>
+<div class="flex text-primary">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-highest/50 text-secondary border border-secondary/20 px-3 py-1 rounded-full text-[12px] font-bold">TECHNICAL MERIT</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Fixed Action Buttons -->
+<div class="fixed bottom-24 right-margin-mobile flex flex-col gap-4 z-40">
+<button class="w-14 h-14 bg-surface-container-highest border border-white/10 text-secondary rounded-full flex items-center justify-center shadow-xl active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<button class="px-8 h-14 bg-primary-container text-on-primary-container rounded-full font-headline-md-mobile flex items-center gap-2 shadow-[0_8px_32px_rgba(220,38,38,0.4)] active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="calendar_add_on">calendar_add_on</span>
+            Book Now
+        </button>
+</div>
+<!-- Bottom Nav Bar -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface/80 backdrop-blur-2xl border-t border-white/10 pb-safe flex justify-around items-center h-20 px-4">
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-bold text-label-bold">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-bold text-label-bold">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-bold text-label-bold">Bookings</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary font-bold active:scale-110 duration-300 ease-out cursor-pointer">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-bold text-label-bold">Profile</span>
+</div>
+</nav>
+</body></html>

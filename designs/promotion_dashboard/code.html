@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-tint": "#ffb4a8", "on-secondary-fixed": "#400201", "surface-container-low": "#271815", error: "#ffb4ab", "on-tertiary-fixed-variant": "#5f4103", "on-background": "#f8dcd7", "secondary-fixed-dim": "#ffb4a8", "tertiary-fixed": "#ffdeab", surface: "#1d100d", "primary-container": "#d83f2e", "on-error": "#690005", "surface-variant": "#42312e", "primary-fixed-dim": "#ffb4a8", "surface-bright": "#473532", "on-primary-container": "#140000", "on-primary-fixed": "#410000", "inverse-surface": "#f8dcd7", primary: "#ffb4a8", "on-tertiary-fixed": "#281900", "on-tertiary-container": "#3a2600", "on-secondary-container": "#ff9f90", "on-tertiary": "#422c00", "inverse-primary": "#b52518", "error-container": "#93000a", "surface-container-lowest": "#180b08", tertiary: "#ebc078", "tertiary-fixed-dim": "#ebc078", "secondary-container": "#7f2f24", "surface-container": "#2b1c19", "on-secondary": "#5e170e", "surface-container-highest": "#42312e", "on-surface": "#f8dcd7", "outline-variant": "#5a403c", "on-primary-fixed-variant": "#920502", "surface-container-high": "#362623", "tertiary-container": "#b18a48", "on-secondary-fixed-variant": "#7c2d22", background: "#1d100d", secondary: "#ffb4a8", "on-primary": "#690000", "primary-fixed": "#ffdad4", "on-surface-variant": "#e3beb8", "on-error-container": "#ffdad6", "surface-dim": "#1d100d", outline: "#aa8984", "inverse-on-surface": "#3d2c29", "secondary-fixed": "#ffdad4"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "40px", "section-gap": "80px", unit: "8", gutter: "24px", "container-max": "1280px", "margin-mobile": "16px"}, fontFamily: {"headline-md": ["Anybody"], "label-bold": ["Inter"], "headline-xl": ["Anybody"], "display-lg": ["Anybody"], "headline-md-mobile": ["Anybody"], "body-lg": ["Inter"], "body-md": ["Inter"]}, fontSize: {"headline-md": ["32px", {lineHeight: "1.2", fontWeight: "700"}], "label-bold": ["14px", {lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700"}], "display-lg": ["72px", {lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "800"}], "headline-md-mobile": ["24px", {lineHeight: "1.2", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "body-md": ["16px", {lineHeight: "1.5", fontWeight: "400"}]}}}};</script>
+<style>
+        .glass-card {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .crimson-glow {
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl border-b border-white/10 h-16 flex justify-between items-center px-margin-mobile">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A stylized professional wrestler profile silhouette against a dark, high-contrast background with deep crimson lighting. The character is muscular and wears high-end performance gear. The lighting is cinematic, casting long dramatic shadows while highlighting sharp athletic features in a modern dark-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7f43VF7pvdhPhGo617jUZHzBE8v4c77yNuBPJl8LiSfHOt2QumVGsDNTjYCHjLIo3AfHV7dID0vM14IktuW90_tCOCJUatfjMU_z1ogitZWBcfhcZ5O4T4IOlHuujHErakVw-dEuXD914Kl5DgLh2e2QHhpw1elSBBtPm0V_CgpZlDoEM3V57Dv14hi4cloUb33ynW88o7PEg18huzoT0gGjG2zewKH3cFxOesvTbESXkbsr9a-EAGEMbSYD_J6Um8oZ-XeL4z3w"/>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tighter uppercase">RingLink</span>
+</div>
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-margin-mobile space-y-6">
+<!-- Welcome & Fast Metrics -->
+<section class="mt-4">
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-on-surface mb-4">Apex Championship Wrestling</h1>
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-card rounded-xl p-4">
+<p class="font-label-bold text-label-bold text-on-surface-variant/60 uppercase">Roster Count</p>
+<p class="font-headline-md text-headline-md text-primary">24</p>
+</div>
+<div class="glass-card rounded-xl p-4">
+<p class="font-label-bold text-label-bold text-on-surface-variant/60 uppercase">Bookings</p>
+<div class="flex items-center gap-2">
+<p class="font-headline-md text-headline-md text-secondary">08</p>
+<span class="text-xs bg-secondary-container/20 text-secondary px-1.5 py-0.5 rounded">Pending</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Analytics Widget -->
+<section class="glass-card rounded-xl p-6 relative overflow-hidden">
+<div class="flex justify-between items-end mb-4">
+<div>
+<h3 class="font-label-bold text-label-bold text-on-surface-variant uppercase">Warfront '24 Budget</h3>
+<p class="font-headline-md text-headline-md text-white">$42.5k / $60k</p>
+</div>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden">
+<div class="bg-gradient-to-r from-secondary-container to-secondary h-full rounded-full w-[70%]"></div>
+</div>
+<p class="text-xs text-on-surface-variant/60 mt-2 font-body-md">Ticket Estimates: 85% capacity reached.</p>
+</section>
+<!-- Match Card Builder -->
+<section>
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md-mobile text-headline-md-mobile text-white">Main Event Card</h2>
+<span class="text-primary font-label-bold text-label-bold uppercase">Warfront '24</span>
+</div>
+<div class="space-y-4">
+<div class="glass-card rounded-xl overflow-hidden border-l-4 border-primary">
+<div class="p-4 flex items-center justify-between">
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container-high border border-white/10 overflow-hidden">
+<img alt="Wrestler A" data-alt="A close-up portrait of a powerful professional wrestler with intense eyes and a determined expression. The lighting is harsh and theatrical, emphasizing muscle definition and beads of sweat. The background is a deep, layered black with subtle crimson glow, fitting a high-stakes athletic arena atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHkd7RZwci9AHy3gS8O3YSUSgfLSmjgEs4kkjqNpRX7tv9j2dkTY6hesHOREY6fX6PuxGNZWdAqfycHx8NUr-LVdRw1Op1V8NidZWc9p26YOh1-Ja-N-n56gQWU3ZEgxDJi8v2A3cx5Uk5VtsrZoDrESqtepV9gSr7JyUcKX1JOyVaIeeJv_KLYeAdTky2FKnnMno_hlj9aOFoatE1gFzz286ugAKXnW8h2i7lQGcUnz3SpiT20D03dvoMAW5nuwrpboPCpwXZYY8"/>
+</div>
+<span class="font-label-bold text-[10px] text-center uppercase tracking-widest text-on-surface">Viper Vance</span>
+</div>
+<div class="px-4">
+<span class="font-headline-md text-headline-md text-primary italic opacity-50">VS</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container-high border border-white/10 overflow-hidden">
+<img alt="Wrestler B" data-alt="A portrait of a charismatic elite athlete in professional wrestling gear, captured in a dramatic low-key studio setting. Deep shadows define the silhouette, while Electric Blue rim lighting adds a futuristic, tech-forward sports science aesthetic. The mood is executive trust mixed with athletic aggression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChtSfRYD9Ewa1zdYheYbUd3pKO2f7MJx_U2ktySEOngk9hYe7_ojnBthuiCdo-sXpcjnx6DFf7E9meRTlDi82E1QU_TDFTsI6-MNd9zO4Gmh6rWBo_KzBn1of6OoEKfRGNcGLqkKFapx_DxWY4FwHIh75812IpGKxqAL73EK4Fj5my0FJMLXsC4uaOZ6lOI5_dQHjtTyfYLXLTYr9QHkfWrgrH0Bi5Mdmfcofd87phkcgqz_3efe0ggGJ_TnIiGWokfwzrztgAJCA"/>
+</div>
+<span class="font-label-bold text-[10px] text-center uppercase tracking-widest text-on-surface">Titan Black</span>
+</div>
+</div>
+<div class="bg-surface-container-high px-4 py-2 flex justify-between items-center">
+<span class="text-xs font-label-bold text-on-surface-variant/80">World Heavyweight Title</span>
+<span class="material-symbols-outlined text-primary text-sm">edit</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Current Roster -->
+<section>
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md-mobile text-headline-md-mobile text-white">Current Roster</h2>
+<button class="text-primary font-label-bold text-label-bold uppercase">View All</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Roster Card 1 -->
+<div class="glass-card rounded-xl overflow-hidden active:scale-95 transition-transform">
+<div class="h-32 bg-surface-container-highest relative">
+<img class="w-full h-full object-cover" data-alt="A full-body high-contrast photograph of a professional wrestler in a triumphant pose. The background is a dark, industrial gym with moody lighting and crimson accents. The image is crisp, modern, and conveys elite athletic status with a prestigious, curated marketplace feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbfHPZgW7oHECk4fgGiqs3VGvtORN16WJSIJZrQcjAaSUCdmgu8motu5eFGG6-H3oFTabUJ_zFCFxxcu8g5r9gxq3qZfJZ0SfRNv_Za3O3M6t2LXX8km6-8aUgupmNpluwQ7Q5PtUtVAHMZNumNzGkEbv6XpbBhRL-QJtOvdhMI3diBEu51wXl0P2aTLgK787AQYwi-0X7lwcVav9HTcubH73QRjZ9q64qIik5NyWGd-on2nIY1naNbgD-ELZ4lKJkwOZVS33CATw"/>
+<div class="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
+<div class="absolute top-2 right-2 flex items-center justify-center w-6 h-6 bg-secondary rounded-full shadow-lg">
+<span class="material-symbols-outlined text-[14px] text-on-secondary-fixed">verified</span>
+</div>
+</div>
+<div class="p-3">
+<p class="font-label-bold text-on-surface">Rex "The Ripper"</p>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-full bg-white/5 h-1 rounded-full">
+<div class="bg-secondary h-full rounded-full w-[92%] shadow-[0_0_8px_rgba(173,198,255,0.5)]"></div>
+</div>
+<span class="text-[10px] font-bold text-secondary">92</span>
+</div>
+</div>
+</div>
+<!-- Roster Card 2 -->
+<div class="glass-card rounded-xl overflow-hidden active:scale-95 transition-transform">
+<div class="h-32 bg-surface-container-highest relative">
+<img class="w-full h-full object-cover" data-alt="A cinematic action shot of a professional athlete during a training session. The lighting is atmospheric, using deep blacks and vibrant crimson highlights to create a high-stakes intensity. The photography is professional and high-contrast, emphasizing precision and power in a premium sports setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi6b-j57-a6Zp3d2E_qbU7yixcsD3j5YDhonQ-WIWZcmG9CTFnQAwm7y-_kWl9ehOrcbuxp7SV4EBBgnzuaEi1Zeb-6h5pL-AI-gyo8EvTcpvoNFaANC2spw5llpN0nHecR6f4NIXEuCAEW3M_6_u02lgSfgU9GHg3feyVwQ1bOTACHNngByclbB4Wk8zYmN2zUTfvHd1G7m2wwrKr3YwBBrh2pIdPakxymwaV5yJ0i9YuRDWA19CvIHKwrFFbR-6N_8bd60FkC8w"/>
+<div class="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
+</div>
+<div class="p-3">
+<p class="font-label-bold text-on-surface">Sasha Silver</p>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-full bg-white/5 h-1 rounded-full">
+<div class="bg-secondary h-full rounded-full w-[88%] shadow-[0_0_8px_rgba(173,198,255,0.5)]"></div>
+</div>
+<span class="text-[10px] font-bold text-secondary">88</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Discovery CTA -->
+<section class="py-4">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md h-16 rounded-xl crimson-glow flex items-center justify-center gap-3 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">person_add</span>
+<span class="tracking-tight uppercase">Find New Talent</span>
+</button>
+</section>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/80 backdrop-blur-2xl border-t border-white/10 h-20 flex justify-around items-center px-4 shadow-2xl">
+<div class="flex flex-col items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-bold text-label-bold">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-bold text-label-bold">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-bold text-label-bold">Bookings</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-bold text-label-bold">Profile</span>
+</div>
+</nav>
+</body></html>

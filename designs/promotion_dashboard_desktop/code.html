@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RingLink | Apex Championship Wrestling Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-tint": "#ffb4a8", "on-secondary-fixed": "#400201", "surface-container-low": "#271815", error: "#ffb4ab", "on-tertiary-fixed-variant": "#5f4103", "on-background": "#f8dcd7", "secondary-fixed-dim": "#ffb4a8", "tertiary-fixed": "#ffdeab", surface: "#1d100d", "primary-container": "#d83f2e", "on-error": "#690005", "surface-variant": "#42312e", "primary-fixed-dim": "#ffb4a8", "surface-bright": "#473532", "on-primary-container": "#140000", "on-primary-fixed": "#410000", "inverse-surface": "#f8dcd7", primary: "#ffb4a8", "on-tertiary-fixed": "#281900", "on-tertiary-container": "#3a2600", "on-secondary-container": "#ff9f90", "on-tertiary": "#422c00", "inverse-primary": "#b52518", "error-container": "#93000a", "surface-container-lowest": "#180b08", tertiary: "#ebc078", "tertiary-fixed-dim": "#ebc078", "secondary-container": "#7f2f24", "surface-container": "#2b1c19", "on-secondary": "#5e170e", "surface-container-highest": "#42312e", "on-surface": "#f8dcd7", "outline-variant": "#5a403c", "on-primary-fixed-variant": "#920502", "surface-container-high": "#362623", "tertiary-container": "#b18a48", "on-secondary-fixed-variant": "#7c2d22", background: "#1d100d", secondary: "#ffb4a8", "on-primary": "#690000", "primary-fixed": "#ffdad4", "on-surface-variant": "#e3beb8", "on-error-container": "#ffdad6", "surface-dim": "#1d100d", outline: "#aa8984", "inverse-on-surface": "#3d2c29", "secondary-fixed": "#ffdad4"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "40px", "section-gap": "80px", unit: "8", gutter: "24px", "container-max": "1280px", "margin-mobile": "16px"}, fontFamily: {"headline-md": ["Anybody"], "label-bold": ["Inter"], "headline-xl": ["Anybody"], "display-lg": ["Anybody"], "headline-md-mobile": ["Anybody"], "body-lg": ["Inter"], "body-md": ["Inter"]}, fontSize: {"headline-md": ["32px", {lineHeight: "1.2", fontWeight: "700"}], "label-bold": ["14px", {lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700"}], "display-lg": ["72px", {lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "800"}], "headline-md-mobile": ["24px", {lineHeight: "1.2", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "body-md": ["16px", {lineHeight: "1.5", fontWeight: "400"}]}}}};</script>
+<style>
+        body {
+            background-color: #080808;
+            color: #fbdbd7;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .inner-glow {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (Shared Component JSON Applied) -->
+<aside class="h-screen w-72 flex-col fixed left-0 top-0 bg-surface/60 backdrop-blur-xl border-r border-white/10 shadow-2xl flex flex-col py-8 z-50">
+<div class="px-8 mb-10">
+<h1 class="font-headline-xl text-headline-xl text-primary font-black tracking-tighter">RingLink</h1>
+<p class="text-on-surface-variant/60 font-label-bold text-xs uppercase tracking-widest mt-1">Elite Talent Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 py-3 px-6 text-primary border-r-4 border-primary bg-primary/10 font-bold active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-bold">Home</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-bold">Search</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+<span class="font-label-bold">Bookings</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-bold">Roster</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-bold">Analytics</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-label-bold">Messages</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-bold">Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container font-label-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary-container/20">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                Post New Event
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 flex-1 p-10 bg-[#080808]">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Welcome, Apex Championship Wrestling</h2>
+<p class="text-on-surface-variant font-body-md opacity-80">Promotion Admin Dashboard • Season 2024</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-end mr-4">
+<span class="text-on-surface font-label-bold">Executive Suite</span>
+<span class="text-primary text-xs font-label-bold uppercase tracking-widest">Premium Partner</span>
+</div>
+<img alt="Admin Profile" class="w-12 h-12 rounded-full border-2 border-primary/30" data-alt="A professional headshot of a focused executive in a dark tailored suit, set against a blurred cinematic office background with subtle crimson accent lighting. The photography is high-contrast, moody, and conveys executive authority and premium status within a high-stakes sports management environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbymAtG5Zb3f4uKOA_pNfG3dlq1BzpeNTd3Bjz6gf-yIKAJ6BM69wO_pwtED3KluT7KiBYF7NuD9nxjDP5dIDokJgXYgd_BYq1t70pzv2FPSX4g3e9EtQhKu9bVQdbuCk6cY3g8QwP12ubx26BjdA3hQp7rHiPpMrKRzd-MTKk2YtYS6IQPu5A0-SHX3HSS0wjUwoUqS4LaqKSQzKTSCGTC3-n9jdX1rflIHQ5ll0DnhvhnNi0E-Gr8toDEYNJvhZNHxEOWxck1NM"/>
+</div>
+</header>
+<!-- Analytics Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Active Roster Card -->
+<div class="glass-panel inner-glow rounded-xl p-6 relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="groups">groups</span>
+<span class="text-xs font-bold text-green-400 flex items-center">+4% <span class="material-symbols-outlined text-xs ml-1" data-icon="trending_up">trending_up</span></span>
+</div>
+<h4 class="text-on-surface-variant font-label-bold uppercase text-xs tracking-widest">Active Roster</h4>
+<div class="text-4xl font-headline-md mt-2">42</div>
+<div class="h-10 mt-4 flex items-end gap-1">
+<div class="bg-primary/20 w-full h-1/2 rounded-sm group-hover:bg-primary/40 transition-colors"></div>
+<div class="bg-primary/20 w-full h-3/4 rounded-sm group-hover:bg-primary/40 transition-colors"></div>
+<div class="bg-primary/20 w-full h-1/2 rounded-sm group-hover:bg-primary/40 transition-colors"></div>
+<div class="bg-primary/20 w-full h-2/3 rounded-sm group-hover:bg-primary/40 transition-colors"></div>
+<div class="bg-primary/60 w-full h-full rounded-sm"></div>
+</div>
+</div>
+<!-- Pending Bookings -->
+<div class="glass-panel inner-glow rounded-xl p-6 group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="receipt_long">receipt_long</span>
+<span class="text-xs font-bold text-primary flex items-center">-2 <span class="material-symbols-outlined text-xs ml-1" data-icon="priority_high">priority_high</span></span>
+</div>
+<h4 class="text-on-surface-variant font-label-bold uppercase text-xs tracking-widest">Pending Bookings</h4>
+<div class="text-4xl font-headline-md mt-2">12</div>
+<div class="h-10 mt-4 flex items-end gap-1">
+<div class="bg-secondary/20 w-full h-2/3 rounded-sm"></div>
+<div class="bg-secondary/20 w-full h-1/3 rounded-sm"></div>
+<div class="bg-secondary/60 w-full h-4/5 rounded-sm"></div>
+<div class="bg-secondary/20 w-full h-1/2 rounded-sm"></div>
+<div class="bg-secondary/20 w-full h-2/3 rounded-sm"></div>
+</div>
+</div>
+<!-- Annual Talent Spend -->
+<div class="glass-panel inner-glow rounded-xl p-6 group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="payments">payments</span>
+<span class="text-xs font-bold text-green-400 flex items-center">On Budget <span class="material-symbols-outlined text-xs ml-1" data-icon="check_circle">check_circle</span></span>
+</div>
+<h4 class="text-on-surface-variant font-label-bold uppercase text-xs tracking-widest">Annual Talent Spend</h4>
+<div class="text-4xl font-headline-md mt-2">$842k</div>
+<div class="h-10 mt-4 flex items-end gap-1">
+<div class="bg-tertiary/20 w-full h-1/4 rounded-sm"></div>
+<div class="bg-tertiary/60 w-full h-3/4 rounded-sm"></div>
+<div class="bg-tertiary/20 w-full h-1/2 rounded-sm"></div>
+<div class="bg-tertiary/20 w-full h-2/3 rounded-sm"></div>
+<div class="bg-tertiary/20 w-full h-1/2 rounded-sm"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-8">
+<!-- Roster Table Area -->
+<section class="col-span-8 glass-panel inner-glow rounded-xl overflow-hidden">
+<div class="p-6 border-b border-white/5 flex justify-between items-center">
+<h3 class="font-headline-md text-2xl">Elite Talent Roster</h3>
+<div class="flex gap-2">
+<button class="bg-surface-variant/50 p-2 rounded-lg hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="bg-surface-variant/50 p-2 rounded-lg hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<table class="w-full text-left">
+<thead>
+<tr class="text-on-surface-variant/60 font-label-bold text-xs uppercase tracking-widest border-b border-white/5">
+<th class="px-6 py-4">Wrestler</th>
+<th class="px-6 py-4 text-center">Rep Score</th>
+<th class="px-6 py-4">Style</th>
+<th class="px-6 py-4">Reliability</th>
+<th class="px-6 py-4 text-right">Last Booked</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-4 flex items-center gap-3">
+<img alt="Vanguard Headshot" class="w-10 h-10 rounded-lg object-cover" data-alt="Close up dramatic portrait of a professional wrestler with intense eyes and sharp features. The lighting is cinematic with deep shadows and a crimson rim light, emphasizing muscle definition and an aggressive athletic presence in a high-end sports studio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4mFppgbKlHJHbm2YjURdW5YKK5pL3f37hn5ffpneofH37j9U5HH4kllEJypkoxysi03Z2wUCDqJw6E-wHY48ignYG6U0vnGlCS-GkhvHucJwkZJOyQWNqn3_OBDEuvT4Iaq-qupNEYqeZeGd1tR7eQnNx0N8Qoicx0e5f4XNs7Ppoq_sBjRXLhTlIabY330AGYtsCYbcw-VYDq1D40xmbAidZCp3-OfmZx7BsokwjCGssX5nKVEHZUT6yJYQwpRDs9RjTaeLApOY"/>
+<div>
+<div class="text-on-surface font-label-bold">The Vanguard</div>
+<div class="text-xs text-on-surface-variant/60">Heavyweight</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="24" cy="24" fill="none" r="20" stroke="rgba(255,255,255,0.05)" stroke-width="4"></circle>
+<circle cx="24" cy="24" fill="none" r="20" stroke="#adc6ff" stroke-dasharray="125.6" stroke-dashoffset="12.5" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-xs font-bold font-headline-md">92</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-tertiary-container/30 text-tertiary text-xs px-2 py-1 rounded border border-tertiary/20">Technical</span>
+</td>
+<td class="px-6 py-4">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary w-[98%]"></div>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-on-surface-variant font-label-bold">Oct 12, 2024</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-4 flex items-center gap-3">
+<img alt="Ironclad Profile" class="w-10 h-10 rounded-lg object-cover" data-alt="A powerful professional wrestler with a shaved head and grizzled beard, looking directly at the camera with a stern expression. Low-key lighting creates high contrast, highlighting sweat and intensity. The background is a dark, atmospheric locker room with deep charcoal and red tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfNmDQYs5eStpewRH5XwV_3nFP8eSDD2fIRAXvUJuq8ugzWOSAirWWw6_3uyx6qcMEckvV15BFFd7b9mPZvmLw7wU0bJjbJcbX4XE8p1sfkc9I6CwF0V0n-EoCK7Qvrq41_MMSODZobV7_-VzJrtL_DNS3KYotmrPv5CMky4IurmWA9AznmIfLXO3cgjywNhaMhnJWRa5s9n8r8QmogfxRKRgis-TGbXZETbNcoKzPC7UODQdBxW131CxHXuOoHEUECysksmPwlqc"/>
+<div>
+<div class="text-on-surface font-label-bold">Ironclad Jackson</div>
+<div class="text-xs text-on-surface-variant/60">Brawler</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="24" cy="24" fill="none" r="20" stroke="rgba(255,255,255,0.05)" stroke-width="4"></circle>
+<circle cx="24" cy="24" fill="none" r="20" stroke="#adc6ff" stroke-dasharray="125.6" stroke-dashoffset="25.1" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-xs font-bold font-headline-md">80</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-primary-container/30 text-primary text-xs px-2 py-1 rounded border border-primary/20">Powerhouse</span>
+</td>
+<td class="px-6 py-4">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary w-[85%]"></div>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-on-surface-variant font-label-bold">Sep 28, 2024</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-4 flex items-center gap-3">
+<img alt="Luna Headshot" class="w-10 h-10 rounded-lg object-cover" data-alt="A fierce female wrestler with vibrant dyed hair and athletic build, wearing high-contrast ring gear. The image captures her mid-pose with dramatic lighting that highlights her strength and dynamic energy, set against a dark architectural background with subtle electric blue highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJFXqi2UrHE4VWUPlUisM-A0U1F8Ijt74YDdr0Sg0SKBW9rIs-si1uRcvhC7Di2Utq2r3EuxhK_jI0vwsp0rm6iQu-YGs2jkjFoDKgqMJCY0QqGrNKSnoMydFb0ALi2lGn2kw8bl6kM1vuavPbqk1Ca5EdNR1qWNiEA5maz9kAPvNjR39yfFmS-ZSedhaAkmXMrSubsJ9ojDhTKwKDiiMSl6cASU39kS1rHKOxMY_npmoXR2fJisXZlk_iuKX0PDbqYYaN3_SlWcQ"/>
+<div>
+<div class="text-on-surface font-label-bold">Luna Nova</div>
+<div class="text-xs text-on-surface-variant/60">High-Flyer</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="24" cy="24" fill="none" r="20" stroke="rgba(255,255,255,0.05)" stroke-width="4"></circle>
+<circle cx="24" cy="24" fill="none" r="20" stroke="#adc6ff" stroke-dasharray="125.6" stroke-dashoffset="15.0" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-xs font-bold font-headline-md">88</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-secondary-container/30 text-secondary text-xs px-2 py-1 rounded border border-secondary/20">Aerialist</span>
+</td>
+<td class="px-6 py-4">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary w-[92%]"></div>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-on-surface-variant font-label-bold">Oct 05, 2024</td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 flex justify-center border-t border-white/5">
+<button class="text-primary font-label-bold text-xs uppercase tracking-widest hover:underline">View All 42 Roster Members</button>
+</div>
+</section>
+<!-- Sidebar Widgets -->
+<aside class="col-span-4 space-y-8">
+<!-- Quick Search Talent -->
+<div class="glass-panel inner-glow rounded-xl p-6">
+<h4 class="font-headline-md text-xl mb-4">Find Replacement</h4>
+<div class="relative mb-6">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50" data-icon="search">search</span>
+<input class="w-full bg-black/40 border border-white/10 rounded-lg py-3 pl-12 pr-4 focus:outline-none focus:border-primary text-sm transition-all" placeholder="Search style or name..." type="text"/>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 cursor-pointer border border-transparent hover:border-white/5 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary font-bold">JD</div>
+<div class="text-sm font-label-bold">Jet Desperado</div>
+</div>
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="verified" data-weight="fill">verified</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 cursor-pointer border border-transparent hover:border-white/5 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-secondary/20 flex items-center justify-center text-secondary font-bold">MK</div>
+<div class="text-sm font-label-bold">Midnight King</div>
+</div>
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="verified" data-weight="fill">verified</span>
+</div>
+</div>
+</div>
+<!-- Upcoming Events -->
+<div class="glass-panel inner-glow rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-headline-md text-xl">Event Queue</h4>
+<span class="text-xs text-on-surface-variant bg-surface-variant/40 px-2 py-1 rounded">Next 30 Days</span>
+</div>
+<div class="space-y-6">
+<div class="flex gap-4 group cursor-pointer">
+<div class="flex flex-col items-center justify-center w-12 h-14 rounded-lg bg-surface-container-highest border border-white/5 group-hover:border-primary/50 transition-all">
+<span class="text-xs font-label-bold text-on-surface-variant uppercase">Nov</span>
+<span class="text-xl font-headline-md text-primary">15</span>
+</div>
+<div>
+<h5 class="font-label-bold group-hover:text-primary transition-colors">Apex Genesis IV</h5>
+<p class="text-xs text-on-surface-variant/60">Grand Arena • 2.5k Capacity</p>
+<div class="flex items-center gap-1 mt-1 text-[10px] text-green-400 font-bold uppercase tracking-tighter">
+<span class="material-symbols-outlined text-[10px]" data-icon="confirmation_number">confirmation_number</span>
+                                    85% Sold Out
+                                </div>
+</div>
+</div>
+<div class="flex gap-4 group cursor-pointer">
+<div class="flex flex-col items-center justify-center w-12 h-14 rounded-lg bg-surface-container-highest border border-white/5 group-hover:border-primary/50 transition-all">
+<span class="text-xs font-label-bold text-on-surface-variant uppercase">Nov</span>
+<span class="text-xl font-headline-md text-primary">22</span>
+</div>
+<div>
+<h5 class="font-label-bold group-hover:text-primary transition-colors">Rumble in the District</h5>
+<p class="text-xs text-on-surface-variant/60">The Warehouse • 800 Capacity</p>
+<div class="flex items-center gap-1 mt-1 text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">
+<span class="material-symbols-outlined text-[10px]" data-icon="calendar_today">calendar_today</span>
+                                    Logistics Confirmed
+                                </div>
+</div>
+</div>
+<div class="flex gap-4 group cursor-pointer">
+<div class="flex flex-col items-center justify-center w-12 h-14 rounded-lg bg-surface-container-highest border border-white/5 group-hover:border-primary/50 transition-all">
+<span class="text-xs font-label-bold text-on-surface-variant uppercase">Dec</span>
+<span class="text-xl font-headline-md text-primary">02</span>
+</div>
+<div>
+<h5 class="font-label-bold group-hover:text-primary transition-colors">Winter Warfare '24</h5>
+<p class="text-xs text-on-surface-variant/60">Civic Center • 5k Capacity</p>
+<div class="flex items-center gap-1 mt-1 text-[10px] text-primary font-bold uppercase tracking-tighter">
+<span class="material-symbols-outlined text-[10px]" data-icon="warning">warning</span>
+                                    4 Open Slots
+                                </div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border border-white/10 rounded-lg text-xs font-label-bold uppercase tracking-widest hover:bg-white/5 transition-all">Full Calendar</button>
+</div>
+</aside>
+</div>
+</main>
+<!-- Background Decoration -->
+<div class="fixed top-[-20%] right-[-10%] w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] -z-10"></div>
+<div class="fixed bottom-[-20%] left-[10%] w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px] -z-10"></div>
+</body></html>

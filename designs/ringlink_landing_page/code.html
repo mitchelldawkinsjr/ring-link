@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-tint": "#ffb4a8", "on-secondary-fixed": "#400201", "surface-container-low": "#271815", error: "#ffb4ab", "on-tertiary-fixed-variant": "#5f4103", "on-background": "#f8dcd7", "secondary-fixed-dim": "#ffb4a8", "tertiary-fixed": "#ffdeab", surface: "#1d100d", "primary-container": "#d83f2e", "on-error": "#690005", "surface-variant": "#42312e", "primary-fixed-dim": "#ffb4a8", "surface-bright": "#473532", "on-primary-container": "#140000", "on-primary-fixed": "#410000", "inverse-surface": "#f8dcd7", primary: "#ffb4a8", "on-tertiary-fixed": "#281900", "on-tertiary-container": "#3a2600", "on-secondary-container": "#ff9f90", "on-tertiary": "#422c00", "inverse-primary": "#b52518", "error-container": "#93000a", "surface-container-lowest": "#180b08", tertiary: "#ebc078", "tertiary-fixed-dim": "#ebc078", "secondary-container": "#7f2f24", "surface-container": "#2b1c19", "on-secondary": "#5e170e", "surface-container-highest": "#42312e", "on-surface": "#f8dcd7", "outline-variant": "#5a403c", "on-primary-fixed-variant": "#920502", "surface-container-high": "#362623", "tertiary-container": "#b18a48", "on-secondary-fixed-variant": "#7c2d22", background: "#1d100d", secondary: "#ffb4a8", "on-primary": "#690000", "primary-fixed": "#ffdad4", "on-surface-variant": "#e3beb8", "on-error-container": "#ffdad6", "surface-dim": "#1d100d", outline: "#aa8984", "inverse-on-surface": "#3d2c29", "secondary-fixed": "#ffdad4"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "40px", "section-gap": "80px", unit: "8", gutter: "24px", "container-max": "1280px", "margin-mobile": "16px"}, fontFamily: {"headline-md": ["Anybody"], "label-bold": ["Inter"], "headline-xl": ["Anybody"], "display-lg": ["Anybody"], "headline-md-mobile": ["Anybody"], "body-lg": ["Inter"], "body-md": ["Inter"]}, fontSize: {"headline-md": ["32px", {lineHeight: "1.2", fontWeight: "700"}], "label-bold": ["14px", {lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700"}], "display-lg": ["72px", {lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "800"}], "headline-md-mobile": ["24px", {lineHeight: "1.2", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "body-md": ["16px", {lineHeight: "1.5", fontWeight: "400"}]}}}};</script>
+<style>
+        .glass-card {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .inner-glow {
+            border: 1px solid;
+            border-image-source: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl dark:bg-surface/60 border-b border-white/10 flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/30">
+<img alt="Profile" data-alt="A professional wrestling profile silhouette representing a high-caliber athlete. The image uses a high-contrast black and charcoal aesthetic with subtle crimson rim lighting to emphasize power and elite status. The background is a clean, dark gradient that fits perfectly within a premium sports tech interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABtsoETvjmCaZYDF59N5oQe2VnnMbaNVsscWwsXOM8VQHCS8zeuAE6BovEF9WOkhYJGtY130Lf6q3lRYJUxPB1BmnlVJxhlJ1BknA1L6b1vICm4fS_hvijbWOnDomukEq_updhVSgqZ2_2dJDkvKDpJlBFIpueVxZvQZXDwm_BkV0SuwlgBSaNtrB-lptKDkz4cNxrlzH9wbST6ZUb5fV98oi6Nv8fpH1yGokIgm2WxxSVx9lzIdGhvOCnz3sDfV646tnRDkcjjMg"/>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tighter uppercase">RingLink</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">notifications</button>
+</div>
+</nav>
+<main class="pt-16 pb-24">
+<!-- Hero Section -->
+<section class="relative min-h-[707px] flex flex-col justify-center px-margin-mobile overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 grayscale" data-alt="A cinematic, wide-angle shot of a professional wrestling ring in a dark, atmospheric arena. Dramatic red and blue spotlights cut through a light haze of smoke, creating a high-stakes, epic mood. The perspective is from the front row, looking up at the canvas, emphasizing the prestigious and intense environment of a major wrestling event." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4SdTNLHfNFwEAMQcsVSasmsPVoKsRoW2lAhwa9gaOcjKWiITbp01067xoKioZXxV0rR9rCnj6ou7mOX53om8Z4u8_hPqp5L7D_OMQzSPiaRc97OGIfg7KYVESRgLv4TVKHkpU9zEZMuyWx7rgw9Wj0HPPje2YWzxz0ZgZWKA6SSYKfBFhWGHbnIJQsfehDTixFWXOZsJzziRgTwgZkRvqEnU69Sm-hbk7Jtf9bvHByT53WmZBKkYN9Wbs33oxAnC3ThxNXPtGoOM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
+</div>
+<div class="relative z-10 space-y-6 max-w-xl">
+<h1 class="font-display-lg text-display-lg leading-none md:text-8xl">
+                    Where <span class="text-primary">Wrestling Talent</span> Meets Opportunity
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                    The elite marketplace connecting world-class athletes with the industry's top promotions. Secure your spot in the main event.
+                </p>
+<div class="pt-4">
+<button class="bg-primary-container text-on-primary-container px-8 py-4 rounded-xl font-headline-md text-xl font-bold uppercase tracking-tight shadow-lg active:scale-95 duration-200">
+                        Join the Roster
+                    </button>
+</div>
+</div>
+<!-- Social Proof: Promotions -->
+<section class="py-12 border-y border-white/5 bg-surface-container-lowest/50">
+<div class="flex flex-wrap justify-center gap-8 px-margin-mobile opacity-50 grayscale hover:grayscale-0 transition-all">
+<img class="h-8 md:h-12 object-contain" data-alt="Professional wrestling promotion logo for brand recognition. Monochrome white design on a transparent background, following the high-contrast executive aesthetic of the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7DQ52srskKIZc4H8D9PRRJCA0Ez00LYllP_9fiwm_5VQIZ0NuyTrGYEYH_X_LvM9ObTRrQEqV3cjbutpU9Pi5n1WSBkjzwXIX4o2UC_LpC256yaoSoFvBFJ9su5ekeARSrrHZduP_hfRj_1QXfSn8xFD9EXgvUIXmG0b3n6NCUyKazxQmlDfhE0IHI3gfhPZ0SlyVNSc977oOYIs-hzUc_tu9FSiquG5BVZKaI3b4sQMTE6RNBHNWqxrcF18vMhBQenvEzr7INWc"/>
+<img class="h-8 md:h-12 object-contain" data-alt="Professional wrestling promotion logo for brand recognition. Monochrome white design on a transparent background, following the high-contrast executive aesthetic of the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTPASeycY3SNjxLSCI2zyVBHSsCYQHn0O3lFi9UsHDGXSyDNrSkWJVcpBE8G3zrEBbiIT294q_hg0_LTznT2a8RwPeaDktlAqSv7luRtK90ZV7F9TI04mV2GrFUK19cEE67IjhrBcFqTa4R2wsGGUbcRs_EHir1OVXXcwdpVJWzMH6AygleKJv08aVhaaQHLwXq-X0EGImc2le9rJVis4z0St3M1V9NXxXb9WT2WHJ-UjfmZZQhZq-3vRE9q2NMhMMFx4BIZ4MeQs"/>
+<img class="h-8 md:h-12 object-contain" data-alt="Professional wrestling promotion logo for brand recognition. Monochrome white design on a transparent background, following the high-contrast executive aesthetic of the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ2jrIS4mO5VlOvPuW2PitaWoHZ1O0k657Aucd82Q_p_EUWIdvjredRCrNsv4epW7uHhuAEcEuxC2ON81u-dvweVxPWzLm1DeJ2VG_I1t8WYYdBCveHaDZmj5U-zaitdGSsTRFAYdcZJPhjd8g32taFmQj3IetVF4Pjl9VWIXCC1FlE8VGaYUAnZNSkkTQB4O9lTeh9wf5LbQbDEijOsxu4PHFuhk2vhnFjs3dPPzgETIxtLKfgeG9HdAGunMvuPjO3zmOLgbBVHk"/>
+<img class="h-8 md:h-12 object-contain" data-alt="Professional wrestling promotion logo for brand recognition. Monochrome white design on a transparent background, following the high-contrast executive aesthetic of the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR35k14JQq620vLra7UyTaYd87IMnGGnDceU-hFQdBFPgmEU2dOdNG801Mntu2XTTaJKwBe6emMtjrDiDS_ENWWpmXwYtZgjF7_G3LWgK6MDs1fUqdYaJSKmPeSyTNcdYW3M5iTKh-hdUB_AcqHrLlNFMIjRCzK2GL4brsCFl448fFhayFMeRhIhHq2WodnSO0bctYsfQw_MyIPyoOKm0A4oGn0z0M9EWaQsqVztz9toOHxpakB5NJhrDz4MneHB5mre31kKMbJfs"/>
+</div>
+</section>
+<!-- Marketplace Preview: Top Rated Talent -->
+<section class="py-section-gap">
+<div class="flex justify-between items-end px-margin-mobile mb-8">
+<div>
+<span class="text-primary font-label-bold uppercase tracking-widest text-xs">Featured Roster</span>
+<h2 class="font-headline-md text-headline-md">Top Rated Talent</h2>
+</div>
+<button class="text-secondary font-label-bold flex items-center gap-2">
+                    See All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="flex overflow-x-auto gap-6 px-margin-mobile no-scrollbar">
+<!-- Talent Card 1 -->
+<div class="min-w-[280px] group relative rounded-2xl overflow-hidden glass-card transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
+<div class="h-[360px] relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A high-contrast athletic portrait of a professional wrestler in peak physical condition. The lighting is dramatic and low-key, highlighting muscle definition with crimson and blue rim lights. The athlete looks confident and ready for action in a high-end sports photography style that fits the premium dark UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIHdp73gGTEmE79giu9bJtjBh59-n5qaHl8T9o-OTP16KglYKaEIcX4PUXLjCGzJ9CufLKUhWAIEnaYnMvFmUNctcGNudwNz_NVu93ILa5TB4wdI0627w2YnuxmCGsTkUm-4vc8q2GkH-oMQA4TmRBVrantw7gwKN1-bDuDS2HaSMc4Yvh-FZbl7ZBTQBPb-sQhhbdNgEia8jKHJac6kL5wPSVyM5qRbkSrW5q5kKvC7X5zzJFGUfp5Z1w5MNgstCMtn3Tbeq7EmI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-6 space-y-2">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-2xl text-white">Jax "Iron" Thorne</h3>
+<div class="bg-secondary/20 border border-secondary/40 text-secondary px-2 py-1 rounded text-[10px] font-bold uppercase">Heavyweight</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative w-10 h-10 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle cx="20" cy="20" fill="transparent" r="16" stroke="rgba(255,255,255,0.1)" stroke-width="3"></circle>
+<circle cx="20" cy="20" fill="transparent" r="16" stroke="#adc6ff" stroke-dasharray="100" stroke-dashoffset="5" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute font-headline-md text-xs text-secondary">95</span>
+</div>
+<span class="font-label-bold text-xs text-on-surface-variant uppercase">Reputation Score</span>
+</div>
+</div>
+</div>
+<!-- Talent Card 2 -->
+<div class="min-w-[280px] group relative rounded-2xl overflow-hidden glass-card transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
+<div class="h-[360px] relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A dynamic action shot of a professional wrestler in the middle of a high-flying move. The background is a blurred arena with cinematic deep red lighting. The focus is sharp on the athlete, capturing the raw intensity and surgical precision of professional wrestling in a high-contrast dark aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1vAtBTkZFzcIcV9pJgH0yqP-y4H55cyvjxZrzSzpt6xueth17MekgkSv1x4Yt20ES_eEtNBie4OvJJPoRrDIfz13G1b-J8yfFh1qlk93FHfzriiZtzuFQsJd5w3KLSTk7SJtfZP2x779Z3hn4spwwsxOIKO13n9U3BckJAWy-UvoPArlnral9MbFlNbOrmT-GxrNzDIwoNFIS81I6Zo9qKnLr3XcYQpkq4Su9X0aLoSBMhbss-s6Itx-bO2qzPfbX4KNgkDa93bQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-6 space-y-2">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-2xl text-white">Elena "The Vibe" Vega</h3>
+<div class="bg-secondary/20 border border-secondary/40 text-secondary px-2 py-1 rounded text-[10px] font-bold uppercase">Flyweight</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative w-10 h-10 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle cx="20" cy="20" fill="transparent" r="16" stroke="rgba(255,255,255,0.1)" stroke-width="3"></circle>
+<circle cx="20" cy="20" fill="transparent" r="16" stroke="#adc6ff" stroke-dasharray="100" stroke-dashoffset="12" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute font-headline-md text-xs text-secondary">88</span>
+</div>
+<span class="font-label-bold text-xs text-on-surface-variant uppercase">Reputation Score</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-margin-mobile py-12">
+<div class="glass-card inner-glow p-8 rounded-2xl text-center space-y-2">
+<p class="font-display-lg text-5xl text-primary font-extrabold">5,000+</p>
+<p class="font-label-bold text-on-surface-variant uppercase tracking-widest text-xs">Verified Matches</p>
+</div>
+<div class="glass-card inner-glow p-8 rounded-2xl text-center space-y-2">
+<p class="font-display-lg text-5xl text-primary font-extrabold">1,200+</p>
+<p class="font-label-bold text-on-surface-variant uppercase tracking-widest text-xs">Active Wrestlers</p>
+</div>
+<div class="glass-card inner-glow p-8 rounded-2xl text-center space-y-2">
+<p class="font-display-lg text-5xl text-primary font-extrabold">300+</p>
+<p class="font-label-bold text-on-surface-variant uppercase tracking-widest text-xs">Promotions</p>
+</div>
+</section>
+<!-- Features Section: Reputation System -->
+<section class="py-section-gap px-margin-mobile">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="order-2 md:order-1 space-y-6">
+<span class="text-secondary font-label-bold uppercase tracking-widest text-xs">Trust &amp; Safety</span>
+<h2 class="font-headline-xl text-headline-xl">Verified Reputation System</h2>
+<p class="text-on-surface-variant text-body-lg">
+                        Our proprietary scoring algorithm analyzes match performance, reliability, and locker room professionalism to give promoters a data-driven choice for every booking.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Blockchain-verified match records</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Peer-to-peer locker room reviews</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Promoter-only elite tier insights</span>
+</li>
+</ul>
+</div>
+<div class="order-1 md:order-2 glass-card rounded-3xl p-4 overflow-hidden border-primary/20">
+<img class="rounded-2xl w-full h-[300px] object-cover grayscale opacity-60" data-alt="A futuristic data visualization dashboard showing complex performance metrics and graphs. The interface uses a deep charcoal and electric blue color scheme with sharp, neon glowing lines. This represents the high-tech, sports science approach to wrestler reputation and performance tracking in a professional, athletic environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARM4H31vWTopGOS-qujE7qT3OUMWOLYYidOz1FxKz_N8QiBzyZFzIG1ZNynWDB25upW8pFbAAkj6ShFTQ-m7cXVKu9nO2rRh58KWYr8Ra_O_TjLkIRGwT2q0aV0YbrM_4vKQLNUNsTCfErKVUbk9ul8H1zD6JvxTnqdEV-JaQgKchuDovJ7HCUh9RU_M1Us0o4IgOJenNLYqBKCmuFvDykc7hM8wj0da6LUnmLGN1zqA5HtDmibnunH6bozTkoaJh-NXNjn91M8MQ"/>
+</div>
+</div>
+</section>
+<!-- Features Section: Seamless Bookings -->
+<section class="py-section-gap px-margin-mobile bg-surface-container/30">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="glass-card rounded-3xl p-8 border-secondary/20 order-1">
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">BK</div>
+<div>
+<p class="font-bold text-sm">Booking Request</p>
+<p class="text-xs text-on-surface-variant">Main Event Championship</p>
+</div>
+</div>
+<span class="text-xs font-bold text-secondary">PENDING</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-primary/10 rounded-xl border border-primary/20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary font-bold">CP</div>
+<div>
+<p class="font-bold text-sm">Contract Paid</p>
+<p class="text-xs text-on-surface-variant">Escrow Released</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+</div>
+</div>
+<div class="space-y-6 order-2">
+<span class="text-primary font-label-bold uppercase tracking-widest text-xs">Efficiency</span>
+<h2 class="font-headline-xl text-headline-xl">Seamless Bookings</h2>
+<p class="text-on-surface-variant text-body-lg">
+                        From contract negotiation to travel logistics and secure payments. RingLink handles the administrative weight so you can focus on the performance.
+                    </p>
+<button class="border border-secondary text-secondary px-8 py-3 rounded-xl font-label-bold uppercase hover:bg-secondary/10 transition-colors">
+                        Learn More
+                    </button>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-margin-mobile text-center">
+<div class="glass-card inner-glow p-12 rounded-[2rem] space-y-8 bg-gradient-to-br from-primary-container/20 to-transparent">
+<h2 class="font-display-lg text-5xl md:text-7xl leading-tight">Ready to Main Event?</h2>
+<p class="text-on-surface-variant text-body-lg max-w-2xl mx-auto">
+                    Join the fastest-growing marketplace for professional wrestling. Whether you are an indy standout or a global promotion, the next chapter starts here.
+                </p>
+<div class="flex flex-col md:flex-row gap-4 justify-center">
+<button class="bg-primary-container text-on-primary-container px-10 py-5 rounded-2xl font-headline-md text-xl font-bold uppercase tracking-tight shadow-xl">
+                        Talent Registration
+                    </button>
+<button class="bg-white/10 text-white backdrop-blur-md px-10 py-5 rounded-2xl font-headline-md text-xl font-bold uppercase tracking-tight border border-white/20">
+                        Promoter Portal
+                    </button>
+</div>
+</div>
+</section>
+</section></main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/80 backdrop-blur-2xl dark:bg-surface/80 border-t border-white/10 flex justify-around items-center h-20 px-4">
+<a class="flex flex-col items-center justify-center text-primary font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-bold text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-bold text-[10px] mt-1">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-bold text-[10px] mt-1">Bookings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-bold text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

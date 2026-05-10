@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RingLink | Alex 'The Anvil' Steele</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-tint": "#ffb4a8", "on-secondary-fixed": "#400201", "surface-container-low": "#271815", error: "#ffb4ab", "on-tertiary-fixed-variant": "#5f4103", "on-background": "#f8dcd7", "secondary-fixed-dim": "#ffb4a8", "tertiary-fixed": "#ffdeab", surface: "#1d100d", "primary-container": "#d83f2e", "on-error": "#690005", "surface-variant": "#42312e", "primary-fixed-dim": "#ffb4a8", "surface-bright": "#473532", "on-primary-container": "#140000", "on-primary-fixed": "#410000", "inverse-surface": "#f8dcd7", primary: "#ffb4a8", "on-tertiary-fixed": "#281900", "on-tertiary-container": "#3a2600", "on-secondary-container": "#ff9f90", "on-tertiary": "#422c00", "inverse-primary": "#b52518", "error-container": "#93000a", "surface-container-lowest": "#180b08", tertiary: "#ebc078", "tertiary-fixed-dim": "#ebc078", "secondary-container": "#7f2f24", "surface-container": "#2b1c19", "on-secondary": "#5e170e", "surface-container-highest": "#42312e", "on-surface": "#f8dcd7", "outline-variant": "#5a403c", "on-primary-fixed-variant": "#920502", "surface-container-high": "#362623", "tertiary-container": "#b18a48", "on-secondary-fixed-variant": "#7c2d22", background: "#1d100d", secondary: "#ffb4a8", "on-primary": "#690000", "primary-fixed": "#ffdad4", "on-surface-variant": "#e3beb8", "on-error-container": "#ffdad6", "surface-dim": "#1d100d", outline: "#aa8984", "inverse-on-surface": "#3d2c29", "secondary-fixed": "#ffdad4"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "40px", "section-gap": "80px", unit: "8", gutter: "24px", "container-max": "1280px", "margin-mobile": "16px"}, fontFamily: {"headline-md": ["Anybody"], "label-bold": ["Inter"], "headline-xl": ["Anybody"], "display-lg": ["Anybody"], "headline-md-mobile": ["Anybody"], "body-lg": ["Inter"], "body-md": ["Inter"]}, fontSize: {"headline-md": ["32px", {lineHeight: "1.2", fontWeight: "700"}], "label-bold": ["14px", {lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700"}], "display-lg": ["72px", {lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "800"}], "headline-md-mobile": ["24px", {lineHeight: "1.2", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "body-md": ["16px", {lineHeight: "1.5", fontWeight: "400"}]}}}};</script>
+<style>
+        body {
+            background-color: #080808;
+            color: #fbdbd7;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .inner-glow {
+            border-image: linear-gradient(to bottom right, rgba(255,255,255,0.15), transparent) 1;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="h-screen w-72 flex-col fixed left-0 top-0 bg-surface/60 backdrop-blur-xl border-r border-white/10 shadow-2xl flex flex-col py-8 z-50">
+<div class="px-8 mb-12">
+<h1 class="font-headline-xl text-headline-xl text-primary font-black tracking-tighter">RingLink</h1>
+<p class="text-on-surface-variant/60 font-label-bold text-[12px] uppercase tracking-widest mt-1">Elite Talent Portal</p>
+</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 transform active:scale-95" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-bold">Home</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-primary border-r-4 border-primary bg-primary/10 font-bold transform transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-bold">Roster</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 transform active:scale-95" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-bold">Search</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 transform active:scale-95" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-label-bold">Bookings</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 transform active:scale-95" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-bold">Analytics</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant/70 hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300 transform active:scale-95" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-bold">Messages</span>
+</a>
+</div>
+<div class="px-6 mt-auto">
+<div class="p-4 bg-surface-container rounded-xl border border-white/5 flex items-center gap-3">
+<img alt="Pro Wrestler Profile" class="w-10 h-10 rounded-full object-cover" data-alt="A professional close-up portrait of a high-end sports executive in a dark, moody studio. The subject has a confident expression, highlighted by sharp rim lighting that emphasizes a chiseled jawline. The background is a deep, textured charcoal grey, maintaining a high-contrast and prestigious aesthetic consistent with professional athletic management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDohczfwxUiLYqrPBqGBZLtjKKFudg_NzgjfCB1PJ6b63ENxzrAXhT4CI6cO0S5Wquxa05I30N6iQvhRQxAtOQrLMEthKGo4AYjqZFUEucjcrpCOeB0ylM3DFHJgQwvQk8qYJiOeTIoHSWVyuNZSvGbQHB31xyJlZcCuS_TNZ-bhFwJZYrub2td4MwMfO711PErwebYt6wRMZv3Gk1LK5Mg5wGJzm03v3iUje0oP60rjmW7g5DDNrUe0l9m7NcAveXO_9eOilvd6Go"/>
+<div>
+<p class="text-on-surface font-bold text-[14px]">Alex Steele</p>
+<p class="text-on-surface-variant text-[12px]">Heavyweight</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-72 pb-32">
+<!-- Hero Section -->
+<header class="relative h-[614px] w-full overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Alex Steele Hero" class="w-full h-full object-cover grayscale brightness-50" data-alt="A cinematic, high-contrast action shot of a professional wrestler in a dimly lit, atmospheric arena. Intense red spotlights cut through a hazy, smoke-filled air, illuminating the athlete's muscular physique and intense facial expression. The lighting style is aggressive and athletic, with deep blacks and vibrant crimson accents, capturing a moment of raw power and focused intensity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo9AZcs35HjZy9D_n8hx7qqNhXR-hDVyyadywcAx9_v1MbDF0y6sFck_UYBIwSlx0IZmVoP9bI6NYdTnUUspW4XdtpVZPIIBJkPP5yJD_wSeij8ELEoZbNS1SAH6OsmILOOu2xHOf6vCfepEhRBmliZ7nfagDKQFHOFrBa1Z2eFxIjQGONUquGCmhLQER3Q5oRtat1YrObCJkFUriCqdRSKbmitbA1QL9x3HMtz01quAQ3VuJ7snEkH8yQhzlb4orD9uHekNqz4Jw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-[#080808]/80 via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 h-full flex flex-col justify-end px-margin-desktop pb-12">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-4 py-1 rounded-full text-label-bold font-label-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                        VERIFIED ELITE
+                    </span>
+<span class="bg-white/10 backdrop-blur-md text-white px-4 py-1 rounded-full text-label-bold font-label-bold">
+                        RANK #4 WORLDWIDE
+                    </span>
+</div>
+<h1 class="font-display-lg text-display-lg uppercase italic tracking-tighter">
+                    Alex <span class="text-primary-container">'The Anvil'</span> Steele
+                </h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mt-4">
+                    The undisputed standard of heavyweight technical wrestling. 12-time Champion across 4 continents. Known for the "Iron Hammer" finisher and a reputation for unmatched surgical precision.
+                </p>
+</div>
+</header>
+<!-- Profile Grid -->
+<div class="px-margin-desktop mt-gutter grid grid-cols-12 gap-gutter">
+<!-- Left Column: Media & History -->
+<div class="col-span-8 space-y-section-gap">
+<!-- Media Gallery -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md">Media Gallery</h2>
+<button class="text-primary font-label-bold flex items-center gap-2 hover:underline">
+                            View All <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="col-span-3 aspect-video relative group overflow-hidden rounded-xl border border-white/10 cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A wide-angle, cinematic video still of a wrestling match highlight. The scene features high-contrast lighting with a dominant blue and red color palette. One athlete is mid-air performing a dynamic move, while the arena crowd is blurred in the background, creating a sense of immense scale and professional sports broadcast quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMqTEEK5PFjAWiwwmyL5Oz2NmofAUTNc69SeY65vgQY1HIMp-dsIrjeZAotL0dZFTPFThmb6NdteFK1X52flhp5fPZfIJfE0AnFoc5fBIgPzhapyWTLDmXL_Uwj4jAlID3DxBWXMZcUpQ9_KRoPupyODMiaUp-oqPOKkY6ugAmg3pDwWxa4Mjl0xIOnZ5GJctPP158IWSKRT93WQOZeoZFZ38rV_NqAjgtqQtWlxnJCbfdFejeoblHbbwZfctamOzSjw_SwbrdsaI"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-all">
+<div class="w-20 h-20 bg-primary-container rounded-full flex items-center justify-center shadow-2xl scale-100 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="absolute bottom-6 left-6">
+<p class="font-headline-md text-[20px] text-white">2024 Highlight Reel</p>
+<p class="text-white/70 font-label-bold">Duration: 04:20</p>
+</div>
+</div>
+<div class="aspect-square overflow-hidden rounded-xl border border-white/10 hover:border-primary/50 transition-colors">
+<img class="w-full h-full object-cover" data-alt="A close-up action photograph of a wrestling match. The lighting is harsh and direct, emphasizing the texture of the wrestling ring and the physical strain on the athletes. The image is stylized with a deep black background and subtle electric blue highlights on the edges of the subjects." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClAGAAYpeoiHsqYfsGs5ZB4d6TU7XlRXQVUSQRSraKrC45MtdZSmHwITTN_OoPismbDlD0-NL3k_8N_CXgqKg765Iu43e1eBIWMCQCX2dZmb-yHT61QsejaXTlEuUzflT0aEWf4KKp9CYZazI3MDfDVYomFZzPkyroN2dk0epoQucbm_qubx9xbwGM0Un2X19lpIBVnY4r8AwmNeHvPL_9AgSrP-fqS90v69DNU1CwJ9kol9AyQQwXmmDDWwE97AoFTvcI17le2js"/>
+</div>
+<div class="aspect-square overflow-hidden rounded-xl border border-white/10 hover:border-primary/50 transition-colors">
+<img class="w-full h-full object-cover" data-alt="A dynamic, low-angle shot of a wrestling arena from the perspective of the front row. The ring is bathed in intense red light, with a wrestler standing victoriously in the center. The atmosphere is thick with fog and excitement, maintaining a high-contrast, premium sports aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXuQGhAmz_L8xIHu9V11xCyoxt0rCrrqGq4cuR2iPrVL3ygHwvz0lmj-2ig0YC11U3WZr0Pkg4QCJy5kdqElk2w02qstqeJC__Np8KMR_zrGtncQrQrDR_DyJZBMpjEWM49gEzjejWFORronYguZOnR2BBV6i487HgCmcuamKm0FjfO7IZVmFaplE42wCmdt9GFMRCgibbai7juRj0goOFf2Lz2mcPRh-74HqGFceVgVZ8dLbPqIE1eme91UsRLLKdKOduyqRWNJk"/>
+</div>
+<div class="aspect-square overflow-hidden rounded-xl border border-white/10 hover:border-primary/50 transition-colors">
+<img class="w-full h-full object-cover" data-alt="A monochromatic, high-detail black and white photograph of athletic equipment and a wrestling belt. The lighting is soft but precise, creating elegant gradients on the metallic surfaces. The image communicates luxury, history, and the high-stakes nature of professional championships." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoT-udEFQ-uCnbavEZnnNkNimp4r5j39Lr25R-NXaeSEOaj7Oljelfvo_su9NSS6ugte2mtgCn3aNNQosgCPHxh4bpAzBmHpGYdmI3KBIkafXYttal03lE2h9JDYw1Udiw7DsZvvswjv06E5rMBE5OgEEAP7cUPamZKDL9Tle6C43mevnn63diRCXejojGylt4WlxPOUjbdqvdktl9XQ-qzlSzVi-ElvJ62xIHU-I4JQUjFrCf5qImnbg_ZM8W0z3BDmTZ9g7STn8"/>
+</div>
+</div>
+</section>
+<!-- Match History -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md">Verified Match History</h2>
+</div>
+<div class="space-y-6">
+<!-- Match Item -->
+<div class="glass-panel p-6 rounded-2xl flex gap-6">
+<div class="w-24 h-24 rounded-lg bg-surface-container-highest flex flex-col items-center justify-center border border-white/10">
+<p class="text-primary font-headline-md text-[24px]">DEC</p>
+<p class="text-on-surface font-black text-[20px]">12</p>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-[20px]">Main Event: Steele vs. 'The Titan'</h3>
+<p class="text-on-surface-variant font-label-bold">Apex Championship Series | New York, NY</p>
+</div>
+<span class="bg-primary-container/20 text-primary-container px-3 py-1 rounded-full font-label-bold text-[12px]">W - VIA PIN FALL</span>
+</div>
+<div class="mt-4 flex gap-4">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface" data-alt="A small, professional avatar portrait of a sports promoter in a suit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXH55UhbWmoxazPu6RePG1AI63qh_sU841TCN7IYThAl43eyT7-udPU6mmx4yL40LsfZSXlhpkUJnwCzjSLCDS6mUJeTvxB-jpAJYPxQ7e8In_ouQXMliCOW1q2VarBWA1h3czI73eKQ2ezCY_WD3dnCtLAoU7xoXdepPlykwqNcEFmazAGKULw6URR4CnmRyNIMMF9-jBok6BPPG14WdwtVSJFh0tfuui6q9pLAQoI-aKfhEezUx7N8aFf0j3ZjRsrmVuO9wJnjs"/>
+<img class="w-8 h-8 rounded-full border-2 border-surface" data-alt="A small, professional avatar portrait of a wrestling commentator." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWocs949Yd14s1QGGkgBsE49zR8aANF5sCIBp9qlCQXzD0YHidMXh5pfz5otWhLnP2IbEbqpihGx0HSNCXstIA6makKrkDc55iQR2CLUz8QOZb0HdgtkZQQa42exhCTSt4alpWziioL9nZ35kCRYD8CzGAQDeIEXMWw7vfqlRf3zDt-PrsHGUB5xwzn5a-7daXLqJ2Yz1CYNg-KnvU0GpKCs2WG_R5T5AIBYiwCltsqU0QMCw3a_8XOmb4ytyPKlUIdRjW8eFKT8M"/>
+</div>
+<p class="text-body-md text-on-surface-variant italic">"A technical masterpiece. Steele's cardio is unmatched in the division." — Promoter Endorsement</p>
+</div>
+</div>
+</div>
+<!-- Match Item -->
+<div class="glass-panel p-6 rounded-2xl flex gap-6">
+<div class="w-24 h-24 rounded-lg bg-surface-container-highest flex flex-col items-center justify-center border border-white/10">
+<p class="text-on-surface-variant font-headline-md text-[24px]">NOV</p>
+<p class="text-on-surface font-black text-[20px]">28</p>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-[20px]">Steel Cage Carnage: Fatal 4-Way</h3>
+<p class="text-on-surface-variant font-label-bold">Global Wrestling Federation | London, UK</p>
+</div>
+<span class="bg-secondary-container/20 text-secondary-container px-3 py-1 rounded-full font-label-bold text-[12px]">W - VIA SUBMISSION</span>
+</div>
+<div class="mt-4">
+<p class="text-body-md text-on-surface-variant italic">"The Anvil dominated the cage. His finisher has never looked more lethal." — GWF Head Booker</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar Widgets -->
+<div class="col-span-4 space-y-gutter">
+<!-- Credibility Score -->
+<div class="glass-panel p-8 rounded-2xl text-center">
+<h3 class="font-label-bold text-on-surface-variant uppercase tracking-widest mb-6">Athlete Credibility</h3>
+<div class="relative w-48 h-48 mx-auto flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-white/5" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary drop-shadow-[0_0_8px_rgba(173,198,255,0.6)]" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552" stroke-dashoffset="33" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg text-[48px] leading-none">94</span>
+<span class="font-label-bold text-on-surface-variant text-[12px]">PERCENTILE</span>
+</div>
+</div>
+<p class="mt-6 text-body-md text-on-surface-variant">Top 6% of heavyweight performers based on promoter reliability and match ratings.</p>
+</div>
+<!-- Stats Card -->
+<div class="glass-panel p-8 rounded-2xl">
+<h3 class="font-headline-md text-[24px] mb-6">Athlete Stats</h3>
+<div class="space-y-4">
+<div class="flex justify-between border-b border-white/5 pb-2">
+<span class="text-on-surface-variant font-label-bold uppercase text-[12px]">Height</span>
+<span class="font-bold">6'4" (193 cm)</span>
+</div>
+<div class="flex justify-between border-b border-white/5 pb-2">
+<span class="text-on-surface-variant font-label-bold uppercase text-[12px]">Weight</span>
+<span class="font-bold">265 lbs (120 kg)</span>
+</div>
+<div class="flex justify-between border-b border-white/5 pb-2">
+<span class="text-on-surface-variant font-label-bold uppercase text-[12px]">Style</span>
+<span class="font-bold">Technical Powerhouse</span>
+</div>
+<div class="flex justify-between border-b border-white/5 pb-2">
+<span class="text-on-surface-variant font-label-bold uppercase text-[12px]">Finisher</span>
+<span class="font-bold text-primary">The Iron Hammer</span>
+</div>
+<div class="flex justify-between border-b border-white/5 pb-2">
+<span class="text-on-surface-variant font-label-bold uppercase text-[12px]">Hometown</span>
+<span class="font-bold">Pittsburgh, PA</span>
+</div>
+</div>
+</div>
+<!-- Upcoming Schedule -->
+<div class="glass-panel p-8 rounded-2xl">
+<h3 class="font-headline-md text-[24px] mb-6">Upcoming Schedule</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="text-primary-container font-black text-headline-md text-[20px] pt-1">01</div>
+<div>
+<p class="font-bold text-on-surface">Genesis: Retribution</p>
+<p class="text-on-surface-variant text-[14px]">Jan 15 • Las Vegas, NV</p>
+</div>
+</div>
+<div class="flex gap-4 opacity-50">
+<div class="text-white/40 font-black text-headline-md text-[20px] pt-1">02</div>
+<div>
+<p class="font-bold text-on-surface">Iron Gate Invitational</p>
+<p class="text-on-surface-variant text-[14px]">Feb 04 • Tokyo, Japan</p>
+</div>
+</div>
+<div class="flex gap-4 opacity-50">
+<div class="text-white/40 font-black text-headline-md text-[20px] pt-1">03</div>
+<div>
+<p class="font-bold text-on-surface">Summer Grand Slam</p>
+<p class="text-on-surface-variant text-[14px]">Jun 22 • Chicago, IL</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 rounded-lg border border-white/10 font-label-bold hover:bg-white/5 transition-colors">FULL TOUR DATES</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Bar -->
+<div class="fixed bottom-8 right-8 left-80 z-50">
+<div class="glass-panel p-4 rounded-full flex items-center justify-between shadow-2xl border-white/20">
+<div class="flex items-center gap-6 pl-6">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
+<span class="font-label-bold text-on-surface">AVAILABLE FOR BOOKING</span>
+</div>
+<div class="h-6 w-px bg-white/10"></div>
+<div class="flex gap-6">
+<div>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase block">Base Rate</span>
+<span class="font-headline-md text-[18px] text-primary">$2,500<span class="text-[12px] text-on-surface-variant">/appearance</span></span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-8 py-4 bg-transparent border border-secondary text-secondary rounded-full font-label-bold uppercase tracking-widest hover:bg-secondary/10 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+                    MESSAGE
+                </button>
+<button class="px-12 py-4 bg-primary-container text-white rounded-full font-headline-md text-[16px] uppercase tracking-wider hover:bg-primary-container/90 transition-all shadow-lg shadow-primary-container/20 flex items-center gap-2 transform active:scale-95">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+                    BOOK NOW
+                </button>
+</div>
+</div>
+</div>
+</body></html>
