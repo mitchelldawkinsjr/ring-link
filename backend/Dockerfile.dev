@@ -1,0 +1,28 @@
+# Development PHP-FPM image for RingLink API.
+# Source code is bind-mounted at runtime from ./backend, so this image only
+# needs the PHP runtime + required extensions + composer.
+FROM php:8.4-fpm-alpine
+
+RUN apk add --no-cache \
+        git \
+        unzip \
+        libzip-dev \
+        icu-dev \
+        oniguruma-dev \
+        linux-headers \
+        mysql-client \
+        $PHPIZE_DEPS \
+    && docker-php-ext-install -j$(nproc) pdo_mysql intl opcache zip bcmath \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    && apk del $PHPIZE_DEPS
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+# Run as root inside the dev container so the bind-mounted host directory
+# (owned by the host user) stays writable for storage/, bootstrap/cache, etc.
+
+EXPOSE 9000
+CMD ["php-fpm"]

@@ -2,16 +2,16 @@
 
 ## Completed in-repo
 - [x] Enum definitions for roles and key workflow statuses.
-- [x] Submission + booking state transition maps.
-- [x] API v1 endpoint contract baseline.
-- [x] Full MVP SQL schema baseline for all required core tables.
-- [x] Docker and CI scaffolding.
-- [x] OpenAPI baseline and architecture notes.
+- [x] Submission + booking state transition maps (`App\Support\StateTransitions`).
+- [x] API v1 endpoints implemented under `backend/routes/api.php` (prefix `/api/v1`).
+- [x] Laravel migrations for all core tables (14 tables, see `docs/database-schema.md`).
+- [x] Docker Compose (PHP-FPM, Nginx, MySQL, Redis, queue worker, scheduler) mounting `backend/`.
+- [x] OpenAPI baseline (`api/openapi.yaml`) — extend schemas as the contract hardens.
+- [x] Laravel 12 app in `backend/` with Sanctum, actions/services, policies, Pest feature tests.
+- [x] Cloudflare R2 disk config (`filesystems.disks.r2`) and signed upload intent flow.
+- [x] CI: backend (Composer, Pint, MySQL migrations, `php artisan test`), MVP integrity script, frontend checks.
 
-## Blocked by environment (external package access)
-- [ ] Full Laravel 12 framework bootstrap in repository root.
-- [ ] Sanctum/mail/queue provider wiring inside Laravel runtime.
-- [ ] Executable Feature/API tests via `php artisan test`.
-
-### Blocker details
-Attempting to fetch Laravel via Composer/GitHub fails in this execution environment due outbound proxy restrictions (`CONNECT tunnel failed, response 403`). Once network access to Packagist/GitHub is available, these final unchecked items can be completed immediately.
+## Optional / ongoing
+- [ ] Larastan static analysis (add `larastan/larastan` when Composer can reach all dist hosts).
+- [ ] Newman/Postman collection in CI for smoke API checks.
+- [ ] Production hardening: rate limits, request IDs, expanded observability.

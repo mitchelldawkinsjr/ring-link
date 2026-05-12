@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: #1d100d;
+  color: #f8dcd7;
+}
+
+body {
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  /* Glassmorphic floating surfaces (top app bars, modals, hovering cards) */
+  .glass-card {
+    background: rgba(29, 16, 13, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 180, 168, 0.12);
+  }
+  .glass-nav {
+    background: rgba(29, 16, 13, 0.7);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-bottom: 1px solid rgba(255, 180, 168, 0.12);
+  }
+  /* Subtle inner-glow border (top-left highlight) */
+  .inner-glow {
+    position: relative;
+  }
+  .inner-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 180, 168, 0.35) 0%,
+      rgba(255, 180, 168, 0) 50%,
+      rgba(255, 180, 168, 0.08) 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .label-tag {
+    @apply inline-flex items-center rounded-md px-2.5 py-1 font-body text-label-bold uppercase tracking-[0.05em] text-on-surface-variant;
+    background: rgba(255, 180, 168, 0.06);
+    border: 1px solid rgba(255, 180, 168, 0.18);
+  }
+  .label-tag-primary {
+    @apply inline-flex items-center rounded-md px-2.5 py-1 font-body text-label-bold uppercase tracking-[0.05em];
+    color: #ffdad4;
+    background: rgba(216, 63, 46, 0.18);
+    border: 1px solid rgba(216, 63, 46, 0.45);
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md bg-primary-container px-6 py-3 font-headline text-base font-bold uppercase tracking-tight text-on-primary-container shadow-lg transition active:scale-95 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-md border border-outline-variant bg-transparent px-6 py-3 font-headline text-base font-bold uppercase tracking-tight text-on-surface transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .input-field {
+    @apply w-full rounded-md border border-outline-variant bg-surface-container-low px-4 py-3 font-body text-body-md text-on-surface placeholder:text-on-surface-variant/50 transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40;
+  }
+  .field-label {
+    @apply mb-1.5 block font-body text-label-bold uppercase tracking-[0.05em] text-on-surface-variant;
+  }
+  .reputation-ring {
+    background: conic-gradient(
+      var(--ring-color, #d83f2e) calc(var(--ring-pct, 0) * 1%),
+      rgba(255, 180, 168, 0.12) 0
+    );
+  }
+  /* Crimson hover glow — applied to cards and CTAs */
+  .crimson-glow {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .crimson-glow:hover {
+    box-shadow: 0 0 25px rgba(216, 63, 46, 0.4);
+    border-color: rgba(216, 63, 46, 0.3);
+  }
+}
+
+/* Always-on dark theme: hide native scrollbars on horizontal carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

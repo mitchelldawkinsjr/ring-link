@@ -5,17 +5,88 @@ on:
   pull_request:
 
 jobs:
-  test:
+  backend:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: ringlink_test
+          MYSQL_USER: ringlink
+          MYSQL_PASSWORD: ringlink
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-      - name: Validate composer
-        run: |
-          if [ -f composer.json ]; then composer validate --strict; else echo "composer.json not present yet"; fi
-      - name: Run tests
-        run: |
-          if [ -f artisan ]; then php artisan test; else echo "Laravel app scaffold pending"; fi
+          extensions: mbstring, pdo_mysql, redis
+          coverage: none
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+      - name: Copy env
+        run: cp .env.example .env && php artisan key:generate
+      - name: Migrate
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: ringlink_test
+          DB_USERNAME: ringlink
+          DB_PASSWORD: ringlink
+        run: php artisan migrate --force
+      - name: Pint
+        run: ./vendor/bin/pint --test
+      - name: Tests
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: ringlink_test
+          DB_USERNAME: ringlink
+          DB_PASSWORD: ringlink
+          RINGLINK_UPLOAD_DISK: public
+        run: php artisan test
+
+  mvp-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: MVP artifact checks
+        run: bash backend/scripts/check_mvp.sh
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm run test -- --run

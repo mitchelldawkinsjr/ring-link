@@ -1,0 +1,136 @@
+# Production stack for RingLink API on the VPS.
+#
+# Conventions matched to /opt/<app> pattern:
+#   - persistent data under /data/ringlink/{mysql,redis,storage}
+#   - shared 360ws-network so Nginx Proxy Manager can reach this stack
+#   - app stays on internal ports; NPM terminates TLS on api.ringlink.app
+#   - nginx (inside this stack) listens on host port 8011, NPM proxies to it
+#
+# Frontend ships separately to Vercel; this file is API-only.
+
+services:
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ringlink-app
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env.production
+    volumes:
+      - /data/ringlink/storage:/var/www/html/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - 360ws-network
+    labels:
+      - "com.360ws.app=ringlink"
+      - "com.360ws.type=docker-app"
+      - "com.360ws.service=app"
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: ringlink-nginx
+    restart: unless-stopped
+    ports:
+      - "8011:80"
+    volumes:
+      - ./.docker/nginx/prod-api.conf:/etc/nginx/conf.d/default.conf:ro
+      - /data/ringlink/storage:/var/www/html/storage:ro
+    depends_on:
+      - app
+    networks:
+      - 360ws-network
+    labels:
+      - "com.360ws.app=ringlink"
+      - "com.360ws.type=docker-app"
+      - "com.360ws.service=nginx"
+
+  mysql:
+    image: mysql:8.4
+    container_name: ringlink-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ringlink}
+      MYSQL_USER: ${MYSQL_USER:-ringlink}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - /data/ringlink/mysql:/var/lib/mysql
+    networks:
+      - 360ws-network
+    labels:
+      - "com.360ws.app=ringlink"
+      - "com.360ws.type=docker-app"
+      - "com.360ws.service=mysql"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    container_name: ringlink-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - /data/ringlink/redis:/data
+    networks:
+      - 360ws-network
+    labels:
+      - "com.360ws.app=ringlink"
+      - "com.360ws.type=docker-app"
+      - "com.360ws.service=redis"
+
+  queue-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ringlink-queue
+    restart: unless-stopped
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    env_file:
+      - ./backend/.env.production
+    volumes:
+      - /data/ringlink/storage:/var/www/html/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - 360ws-network
+    labels:
+      - "com.360ws.app=ringlink"
+      - "com.360ws.type=docker-app"
+      - "com.360ws.service=queue-worker"
+
+  scheduler:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ringlink-scheduler
+    restart: unless-stopped
+    command: sh -lc "while true; do php artisan schedule:run --no-interaction; sleep 60; done"
+    env_file:
+      - ./backend/.env.production
+    volumes:
+      - /data/ringlink/storage:/var/www/html/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - 360ws-network
+    labels:
+      - "com.360ws.app=ringlink"
+      - "com.360ws.type=docker-app"
+      - "com.360ws.service=scheduler"
+
+networks:
+  360ws-network:
+    external: true

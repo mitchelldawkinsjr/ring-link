@@ -1,72 +1,74 @@
 # RingLink
 
-RingLink is a wrestling talent marketplace platform connecting professional wrestlers and wrestling promotions.
+RingLink is a wrestling talent marketplace connecting professional wrestlers and wrestling promotions.
 
 ## Stack
-- Next.js
-- Laravel API (target)
-- MySQL 8
-- Redis
-- Docker
-- Cloudflare R2
 
-## Current Repository Status
-This repository started as a product/design/architecture source-of-truth workspace. It now includes backend delivery scaffolding:
+| Layer | Choice |
+|-------|--------|
+| Frontend | Next.js 15 (App Router), TypeScript, Tailwind 3, TanStack Query, Zustand |
+| API | Laravel 12, Sanctum (Bearer tokens), MySQL 8, Redis |
+| Storage | Cloudflare R2 (S3 driver) for wrestler media |
+| Local dev | Docker Compose (`backend/` is the Laravel app root) |
 
-- Docker Compose baseline with required service topology
-- Nginx configuration for Laravel API serving
-- CI workflow placeholder for PHP/Laravel checks
-- OpenAPI baseline (`api/openapi.yaml`)
-- Architecture summary and execution TODOs
-
-## Local Development (Docker)
+## Quick start (Docker)
 
 ```bash
+cp backend/.env.example backend/.env
+# Set APP_KEY, DB_* for MySQL service (see docker-compose.yml ports)
+
 docker compose up -d
+cd backend && composer install && php artisan migrate --seed
 ```
 
-Services:
-- `app` (PHP-FPM)
-- `nginx` (port `8080`)
-- `mysql` (port `3307`)
-- `redis` (port `6379`)
-- `queue-worker`
-- `scheduler`
+- API (via Nginx): `http://localhost:8000/api/v1` (override host port with `RINGLINK_NGINX_PORT` in `.env` if needed)
+- MySQL: `127.0.0.1:3307` (user `ringlink` / pass `ringlink`, DB `ringlink`)
 
-## Next Implementation Step
-Scaffold Laravel 12 app in repository root, then wire:
-- Sanctum auth
-- role onboarding
-- migrations/models/policies/resources
-- action/service workflow classes
-- feature/API test suite
-
-See `/docs/architecture-summary.md` and `/docs/todos.md`.
-
-
-## MVP Backend Build (Current)
-
-A Laravel-ready backend implementation baseline now exists under `backend/` including:
-- role/status enums
-- state transition maps for submissions/bookings
-- initial SQL migration baseline for core identity/profile schema
-- API route contract map
-- feature test plan for workflow coverage
-
-> Note: full Laravel framework bootstrap was attempted but package download is blocked in this environment (Packagist CONNECT tunnel 403).
-
-
-## Local Artifact Validation
-
-Run repository-level MVP checks in this environment:
+### Frontend
 
 ```bash
+cd frontend
+cp .env.local.example .env.local
+npm ci
+npm run dev
+```
+
+Open `http://localhost:3000`. Set `NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1` (must match the Nginx host port).
+
+**Default admin (after seed):** `admin@ringlink.local` / `password` — change immediately in any shared environment.
+
+## Repository layout
+
+- [`backend/`](backend/) — Laravel application (migrations, actions, policies, Pest tests, Postman collection)
+- [`frontend/`](frontend/) — Next.js PWA-oriented UI (manifest included; service worker can be added later)
+- [`api/openapi.yaml`](api/openapi.yaml) — API contract (use `npm run generate:api` in `frontend/` to refresh TS types)
+- [`docs/`](docs/) — product + deploy notes ([`docs/DEPLOY.md`](docs/DEPLOY.md) for VPS / Vercel / R2)
+
+## Quality gates
+
+```bash
+cd backend && ./vendor/bin/pint --test && php artisan test
+cd frontend && npm run lint && npm run typecheck && npm run test -- --run && npm run build
 bash backend/scripts/check_mvp.sh
 ```
 
-This validates schema/table coverage, OpenAPI core paths, workflow states, and required docs.
+### E2E (local)
 
-## API Client Collection
+```bash
+cd frontend && npx playwright install && npm run test:e2e
+# Start API + Next dev servers first, or set PLAYWRIGHT_BASE_URL.
+```
 
-A Postman collection is available at:
-- `backend/postman/RingLink-MVP.postman_collection.json`
+## CI
+
+GitHub Actions **CI** workflow: backend (Composer, Pint, MySQL, tests), MVP integrity script, frontend (lint, tsc, Vitest).
+
+Deploy templates: **Deploy backend (VPS)**, **Deploy frontend (Vercel)** (see [`docs/DEPLOY.md`](docs/DEPLOY.md)).
+
+## API client
+
+- Postman: [`backend/postman/RingLink-MVP.postman_collection.json`](backend/postman/RingLink-MVP.postman_collection.json)
+
+## License
+
+Proprietary — All rights reserved unless otherwise stated.

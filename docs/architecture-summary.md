@@ -1,53 +1,76 @@
-# RingLink MVP Backend Foundation (Phase 1)
+# Architecture Summary
 
-## Scope Implemented in this commit
+## Overview
 
-This repository initially contained product/design/documentation references only. This foundation commit adds implementation scaffolding for backend delivery:
+RingLink is a wrestling talent marketplace connecting independent wrestlers with promotions. It is built as a pragmatic Laravel monolith API consumed by a Next.js frontend.
 
-- Dockerized local environment baseline (`app`, `nginx`, `mysql`, `redis`, `queue-worker`, `scheduler`)
-- Nginx config for Laravel API routing
-- CI workflow baseline for PHP/Laravel pipelines
-- OpenAPI v1 baseline for MVP endpoint families
-- MVP implementation backlog split by delivery slices
+## Stack
 
-## API/Architecture Direction
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js 15 (App Router), TypeScript, Tailwind CSS |
+| Backend | Laravel 12, PHP 8.4, Sanctum |
+| Database | MySQL 8.4 |
+| Cache / Queues | Redis 7 |
+| Storage | Cloudflare R2 (S3-compatible) |
+| Frontend hosting | Vercel |
+| Backend hosting | VPS (Docker) |
 
-- API prefix: `/api/v1`
-- Response envelope:
-  - `data`
-  - `meta`
-  - `message`
-- Backend model: modular Laravel monolith (service/action pattern)
-- Auth: Sanctum + role-based onboarding (`wrestler`, `promotion`, `admin`)
-- Workflows: enum-backed status machines for submissions/bookings/review moderation
-- Asynchronous flows: Redis queue-backed notifications and aggregate recalculation jobs
+## API Design
 
-## Data Model Intent (MVP)
+- Prefix: `/api/v1`
+- JSON envelope: `{ data, meta, message }`
+- Auth: Laravel Sanctum token-based (Bearer header)
+- Roles: `wrestler`, `promotion`, `admin`
+- Pagination and filter composability on discovery endpoints
+- Compact list payloads + detailed show payloads
+- Eager-loaded profile/media primitives to avoid N+1
 
-Core entities to implement:
+## Backend Patterns
 
-- `users`
-- `wrestler_profiles`
-- `promotion_profiles`
-- `events`
-- `submissions`
-- `bookings`
-- `conversations`
-- `messages`
-- `media_links`
-- `availability_windows`
-- `verified_booking_reviews`
-- `notifications`
-- `saved_talent`
-- `audit_logs`
+- **Service/action pattern** — thin controllers delegate to single-responsibility Action classes
+- **Form Requests** for validation
+- **Policies** for authorization
+- **Enum-backed state machines** for submission and booking workflows
+- **Observer pattern** for side effects (audit logs, rating recalculation, notifications)
+- **Redis-backed queues** for async jobs (`RecalculateWrestlerRatingJob`, `SendRinglinkAlertJob`)
+- **API Resources** for response shaping
 
-## Frontend-Aware API Strategy
+## Core Domain
 
-Design references indicate mobile-first cards, dashboard summaries, and messaging threads. API design should therefore prioritize:
+```
+User
+├── WrestlerProfile  (role=wrestler)
+│   ├── MediaLinks
+│   ├── AvailabilityWindows
+│   └── Submissions → Bookings
+└── PromotionProfile (role=promotion)
+    ├── Events → Submissions → Bookings
+    │                          └── Conversations → Messages
+    │                          └── VerifiedBookingReview
+    └── SavedTalent
+```
 
-- pagination and filter composability
-- eager-loaded profile/media primitives (avoid N+1)
-- compact list payloads + detailed show payloads
-- dashboard aggregation endpoints
-- consistent cursor/page metadata for infinite scroll
+## Workflow State Machines
 
+### Submission
+`submitted → reviewing → interested → offer_sent → accepted → booked → completed`
+Any state → `declined` | `cancelled`
+
+### Booking
+`pending → confirmed → in_progress → completed`
+Any non-terminal → `cancelled`
+
+### Review moderation
+`pending → approved` | `pending → rejected`
+
+## Frontend
+
+- TanStack Query for server state
+- Zustand for lightweight client state
+- Mobile-first responsive design
+- Accessibility-compliant components
+
+## Infrastructure
+
+See `docs/infra.md` for service versions and `docs/DEPLOY.md` for deployment runbook.

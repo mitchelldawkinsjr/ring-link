@@ -1,0 +1,136 @@
+name: Deploy backend to mitch-cloud
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.docker/**'
+      - 'docker-compose.prod.yml'
+      - '.github/workflows/deploy-backend.yml'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to deploy
+        required: false
+        default: main
+
+jobs:
+  deploy:
+    name: Deploy RingLink API to VPS
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      VPS_APP_PATH: /opt/360ws/clients/docker-app/ringlink
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Add VPS to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Ensure deploy directory exists on VPS
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh ${VPS_USER}@${VPS_HOST} bash <<EOF
+            set -e
+            mkdir -p ${VPS_APP_PATH}
+            mkdir -p /data/ringlink/{mysql,redis,storage,backups}
+            chown -R 33:33 /data/ringlink/storage
+            docker network ls --format '{{.Name}}' | grep -q '^360ws-network\$' || docker network create 360ws-network
+          EOF
+
+      - name: Sync repo to VPS
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          rsync -avz --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'node_modules' \
+            --exclude 'vendor' \
+            --exclude 'frontend/.next' \
+            --exclude 'frontend/node_modules' \
+            --exclude 'backend/vendor' \
+            --exclude 'backend/node_modules' \
+            --exclude 'backend/storage/logs' \
+            --exclude 'backend/storage/framework/cache' \
+            --exclude 'backend/storage/framework/sessions' \
+            --exclude 'backend/storage/framework/views' \
+            --exclude 'backend/.env' \
+            --exclude 'backend/.env.production' \
+            ./ ${VPS_USER}@${VPS_HOST}:${VPS_APP_PATH}/
+
+      - name: Build, restart, migrate, health-check
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh ${VPS_USER}@${VPS_HOST} bash <<EOF
+            set -e
+            cd ${VPS_APP_PATH}
+
+            echo "==> Building images"
+            docker compose -f docker-compose.prod.yml build --no-cache app queue-worker scheduler
+
+            echo "==> Pulling vendor images"
+            docker compose -f docker-compose.prod.yml pull mysql redis nginx || true
+
+            echo "==> Bringing the stack up"
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+
+            echo "==> Waiting for app container"
+            sleep 12
+
+            echo "==> Running migrations"
+            docker compose -f docker-compose.prod.yml exec -T app php artisan migrate --force || \
+            docker compose -f docker-compose.prod.yml run --rm app php artisan migrate --force
+
+            echo "==> Caching config + routes"
+            docker compose -f docker-compose.prod.yml exec -T app php artisan storage:link || true
+            docker compose -f docker-compose.prod.yml exec -T app php artisan config:cache || true
+            docker compose -f docker-compose.prod.yml exec -T app php artisan route:cache || true
+            docker compose -f docker-compose.prod.yml exec -T app php artisan event:cache || true
+
+            echo "==> Health check"
+            attempt=0
+            max_attempts=30
+            until curl -fsS http://localhost:8011/up >/dev/null 2>&1; do
+              attempt=\$((attempt + 1))
+              if [ \$attempt -ge \$max_attempts ]; then
+                echo "Health check failed after \$max_attempts attempts"
+                docker compose -f docker-compose.prod.yml logs --tail=120 app nginx
+                exit 1
+              fi
+              echo "  attempt \$attempt/\$max_attempts not ready, retrying..."
+              sleep 2
+            done
+            echo "Health check passed"
+          EOF
+
+      - name: Notify Slack on success
+        if: success() && env.SLACK_WEBHOOK != ''
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\":white_check_mark: RingLink API deployed to mitch-cloud (\`${GITHUB_SHA::7}\`)\"}" \
+            "$SLACK_WEBHOOK"
+
+      - name: Notify Slack on failure
+        if: failure() && env.SLACK_WEBHOOK != ''
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\":x: RingLink API deploy to mitch-cloud failed (\`${GITHUB_SHA::7}\`) — see Actions log\"}" \
+            "$SLACK_WEBHOOK"
