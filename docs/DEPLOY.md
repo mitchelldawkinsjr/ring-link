@@ -70,16 +70,15 @@ In `mitchelldawkinsjr/ring-link → Settings → Secrets and variables → Actio
 
 ## NPM (reverse proxy + TLS)
 
-In Nginx Proxy Manager, add a **Proxy Host**:
+In Nginx Proxy Manager, the production proxy host is:
 
-- **Domain Names**: `api.ringlink.app`
-- **Scheme**: `http`
-- **Forward Hostname / IP**: `ringlink-nginx` (container name on `360ws-network`)
-- **Forward Port**: `80`
-- **Block Common Exploits** ✓, **Websockets Support** ✓
-- **SSL** → request new Let's Encrypt cert, force SSL, HTTP/2, HSTS
+- **Domain**: `ringlink.360web.cloud` (CNAME → `360web.cloud` → VPS IP)
+- **Scheme / Forward Host / Port**: `http` → `ringlink-nginx:80`
+- **Block Common Exploits** ✓, **Websockets** ✓
+- **SSL** → Let's Encrypt cert (id 84), Force SSL, HTTP/2, HSTS
 
-DNS: `A` record `api.ringlink.app → <VPS public IP>`.
+When the eventual `api.ringlink.app` hostname is provisioned, add it as a second
+proxy host entry (or update this one with both domains).
 
 ## Frontend on Vercel
 
