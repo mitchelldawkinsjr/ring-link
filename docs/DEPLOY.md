@@ -33,8 +33,7 @@ scriptura, etc.). RingLink follows the same convention:
 2. Uses `webfactory/ssh-agent@v0.9.0` + `ssh-keyscan` to authenticate.
 3. `rsync -avz --delete` pushes the repo to
    `/opt/360ws/clients/docker-app/ringlink/` — excluding `.git`, `vendor`,
-   `node_modules`, log/cache dirs, and **`backend/.env.production`** (the VPS
-   keeps its own copy).
+   `node_modules`, log/cache dirs, and **`.env`** (the VPS keeps its own copy).
 4. SSH session on the VPS runs: build → up → migrate → cache config/routes →
    health-check `http://localhost:8011/up`.
 5. Slack notification on success/failure (optional, only if `SLACK_WEBHOOK`
@@ -48,10 +47,10 @@ the only manual step the first time is the env file:
 ```bash
 ssh root@<vps-host>
 cd /opt/360ws/clients/docker-app/ringlink
-cp backend/.env.production.example backend/.env.production
-nano backend/.env.production            # fill in DB pw, R2 keys, mail, etc.
+cp .env.example .env
+nano .env                                # fill in DB pw, R2 keys, mail, etc.
 
-# Generate APP_KEY once and paste into backend/.env.production:
+# Generate APP_KEY once and paste into .env:
 docker compose -f docker-compose.prod.yml run --rm app php artisan key:generate --show
 ```
 

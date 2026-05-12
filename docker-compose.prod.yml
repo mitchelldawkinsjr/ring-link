@@ -1,10 +1,12 @@
 # Production stack for RingLink API on the VPS.
 #
-# Conventions matched to /opt/<app> pattern:
+# Conventions matched to /opt/360ws/clients/docker-app/<app> pattern:
 #   - persistent data under /data/ringlink/{mysql,redis,storage}
 #   - shared 360ws-network so Nginx Proxy Manager can reach this stack
 #   - app stays on internal ports; NPM terminates TLS on api.ringlink.app
 #   - nginx (inside this stack) listens on host port 8011, NPM proxies to it
+#   - single `.env` at project root sourced by both compose interpolation
+#     (${VAR}) and each service's `env_file:` (injected into containers)
 #
 # Frontend ships separately to Vercel; this file is API-only.
 
@@ -16,7 +18,7 @@ services:
     container_name: ringlink-app
     restart: unless-stopped
     env_file:
-      - ./backend/.env.production
+      - ./.env
     volumes:
       - /data/ringlink/storage:/var/www/html/storage
     depends_on:
@@ -56,8 +58,8 @@ services:
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ringlink}
       MYSQL_USER: ${MYSQL_USER:-ringlink}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?set MYSQL_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD in .env}
     volumes:
       - /data/ringlink/mysql:/var/lib/mysql
     networks:
@@ -95,7 +97,7 @@ services:
     restart: unless-stopped
     command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
     env_file:
-      - ./backend/.env.production
+      - ./.env
     volumes:
       - /data/ringlink/storage:/var/www/html/storage
     depends_on:
@@ -118,7 +120,7 @@ services:
     restart: unless-stopped
     command: sh -lc "while true; do php artisan schedule:run --no-interaction; sleep 60; done"
     env_file:
-      - ./backend/.env.production
+      - ./.env
     volumes:
       - /data/ringlink/storage:/var/www/html/storage
     depends_on:
