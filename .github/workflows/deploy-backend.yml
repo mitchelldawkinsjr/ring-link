@@ -47,8 +47,11 @@ jobs:
           ssh ${VPS_USER}@${VPS_HOST} bash <<EOF
             set -e
             mkdir -p ${VPS_APP_PATH}
-            mkdir -p /data/ringlink/{mysql,redis,storage,backups}
-            chown -R 33:33 /data/ringlink/storage
+            mkdir -p /data/ringlink/{mysql,redis,backups}
+            mkdir -p /data/ringlink/storage/{app/public,app/private,framework/cache/data,framework/sessions,framework/views,framework/testing,logs}
+            # 82 = www-data uid inside the Alpine PHP image (Debian uses 33)
+            chown -R 82:82 /data/ringlink/storage
+            chmod -R ug+rwX /data/ringlink/storage
             docker network ls --format '{{.Name}}' | grep -q '^360ws-network\$' || docker network create 360ws-network
           EOF
 

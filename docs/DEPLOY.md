@@ -41,8 +41,11 @@ scriptura, etc.). RingLink follows the same convention:
 
 ## One-time VPS bootstrap (already done for RingLink)
 
-The GitHub Action creates the data dirs and the shared network on every run, so
-the only manual step the first time is the env file:
+The GitHub Action creates the data dirs, the shared network, and seeds
+`/data/ringlink/storage` with the Laravel subdirectories owned by uid 82
+(the Alpine PHP image's `www-data`) on every run.
+
+The only manual step the first time is the env file:
 
 ```bash
 ssh root@<vps-host>
