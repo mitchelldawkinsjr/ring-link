@@ -25,15 +25,20 @@ use Illuminate\Support\Facades\Hash;
 class DemoDataSeeder extends Seeder
 {
     /**
-     * Seed a hand-curated, realistic demo dataset:
-     *  - 8 wrestlers with reputations and availability
-     *  - 4 promotions with venues and shows
-     *  - submissions / bookings spanning every workflow state
+     * Seed a small, hand-curated demo set for the public site.
+     *
+     *  - 3 wrestlers with reputations + availability
+     *  - 2 promotions with venues and shows
+     *  - submissions / bookings spanning several workflow states
      *  - verified reviews with full 6-dimension ratings
      *  - threaded conversations between paired counterparties
      *
-     * Idempotent: uses firstOrCreate keyed on email / FKs so re-running
-     * top-ups missing rows without producing duplicates.
+     * Idempotent: uses firstOrCreate / updateOrCreate keyed on email / FKs
+     * so re-running tops up missing rows without producing duplicates.
+     *
+     * Demo accounts always use the `@ringlink.local` email domain; any old
+     * demo accounts on that domain that are NOT in the curated catalog below
+     * are pruned at the end of the run, so the live site stays tidy.
      */
     public function run(): void
     {
@@ -46,6 +51,7 @@ class DemoDataSeeder extends Seeder
         $bookings = $this->seedBookings($submissions);
         $this->seedReviews($bookings);
         $this->seedConversations($bookings);
+        $this->pruneStaleDemoAccounts();
         $this->recalculateWrestlerRatings();
 
         $this->command?->info('Demo data ready: '
@@ -56,24 +62,59 @@ class DemoDataSeeder extends Seeder
     }
 
     /**
+     * Curated wrestler emails (the only `@ringlink.local` wrestler users that
+     * should exist after a seed run).
+     *
+     * @return array<int, string>
+     */
+    private function curatedWrestlerEmails(): array
+    {
+        return array_column($this->wrestlerCatalog(), 1);
+    }
+
+    /**
+     * Curated promotion emails (the only `@ringlink.local` promotion users that
+     * should exist after a seed run).
+     *
+     * @return array<int, string>
+     */
+    private function curatedPromotionEmails(): array
+    {
+        return array_column($this->promotionCatalog(), 1);
+    }
+
+    /**
+     * @return array<int, array{0:string,1:string,2:string,3:string,4:string,5:int,6:array<int,string>,7:string,8:int,9:int,10:float,11:string}>
+     */
+    private function wrestlerCatalog(): array
+    {
+        // [ringName, email, hometown, state, style, years, matchTypes, gimmick, rateMin, rateMax, rating, imageSlug]
+        return [
+            ['Alex "The Anvil" Steele', 'alex.steele@ringlink.local', 'Pittsburgh, PA', 'PA', 'technical', 12, ['singles', 'tag', 'hardcore'], 'Iron-fisted blue collar enforcer.', 800, 2500, 4.9, 'alex-steele'],
+            ['Siren Storm', 'siren.storm@ringlink.local', 'Brooklyn, NY', 'NY', 'high-flyer', 7, ['singles', 'tag'], 'Lightning-quick high-flying babyface.', 500, 1800, 4.7, 'siren-storm'],
+            ['Mistico Volador', 'mistico.volador@ringlink.local', 'Mexico City', 'TX', 'high-flyer', 9, ['singles', 'lucha'], 'Masked luchador with a lethal corkscrew finish.', 600, 2200, 4.6, 'mistico-volador'],
+        ];
+    }
+
+    /**
+     * @return array<int, array{0:string,1:string,2:string,3:string,4:string,5:string}>
+     */
+    private function promotionCatalog(): array
+    {
+        // [name, email, city, state, description, imageSlug]
+        return [
+            ['Apex Combat Wrestling', 'bookings@apexcombat.local', 'Las Vegas', 'NV', 'Premier west-coast independent. Quarterly stadium shows.', 'apex-combat'],
+            ['Ironbound Pro Wrestling', 'office@ironbound.local', 'Brooklyn', 'NY', 'East-coast hardcore-leaning indie since 2019.', 'ironbound'],
+        ];
+    }
+
+    /**
      * @return array<int, WrestlerProfile>
      */
     private function seedWrestlers(): array
     {
-        $rows = [
-            // [ringName, email, hometown, state, style, years, matchTypes, gimmick, rateMin, rateMax, rating, imageSlug]
-            ['Alex "The Anvil" Steele', 'alex.steele@ringlink.local', 'Pittsburgh, PA', 'PA', 'technical', 12, ['singles', 'tag', 'hardcore'], 'Iron-fisted blue collar enforcer.', 800, 2500, 4.9, 'alex-steele'],
-            ['Siren Storm', 'siren.storm@ringlink.local', 'Brooklyn, NY', 'NY', 'high-flyer', 7, ['singles', 'tag'], 'Lightning-quick high-flying babyface.', 500, 1800, 4.7, 'siren-storm'],
-            ['Mistico Volador', 'mistico.volador@ringlink.local', 'Mexico City', 'TX', 'high-flyer', 9, ['singles', 'lucha'], 'Masked luchador with a lethal corkscrew finish.', 600, 2200, 4.6, 'mistico-volador'],
-            ['Brick Calloway', 'brick.calloway@ringlink.local', 'Houston, TX', 'TX', 'brawler', 14, ['singles', 'hardcore'], 'Old-school southern brawler. Will bleed for the show.', 700, 2300, 4.4, 'brick-calloway'],
-            ['Nyx Kasai', 'nyx.kasai@ringlink.local', 'Tokyo, JP', 'CA', 'technical', 6, ['singles', 'joshi'], 'Strong-style submission specialist.', 550, 1900, 4.8, 'nyx-kasai'],
-            ['Rex "The Ripper" Holloway', 'rex.holloway@ringlink.local', 'Tampa, FL', 'FL', 'brawler', 11, ['singles', 'tag', 'hardcore'], 'Bruiser with a championship pedigree.', 750, 2400, 4.5, 'rex-holloway'],
-            ['Eulogy Vex', 'eulogy.vex@ringlink.local', 'Cleveland, OH', 'OH', 'technical', 4, ['singles'], 'Up-and-coming technical phenom.', 350, 1200, 4.3, 'eulogy-vex'],
-            ['Phoenix LaRue', 'phoenix.larue@ringlink.local', 'Los Angeles, CA', 'CA', 'high-flyer', 8, ['singles', 'tag'], 'Charismatic crowd favourite. Sells like nobody else.', 600, 2100, 4.7, 'phoenix-larue'],
-        ];
-
         $profiles = [];
-        foreach ($rows as [$ringName, $email, $hometown, $state, $style, $years, $matchTypes, $gimmick, $rateMin, $rateMax, $rating, $imageSlug]) {
+        foreach ($this->wrestlerCatalog() as $idx => [$ringName, $email, $hometown, $state, $style, $years, $matchTypes, $gimmick, $rateMin, $rateMax, $rating, $imageSlug]) {
             $user = User::query()->firstOrCreate(
                 ['email' => $email],
                 [
@@ -105,7 +146,6 @@ class DemoDataSeeder extends Seeder
                 ]
             );
 
-            $imageUrl = $this->frontendAssetUrl("/seed/wrestlers/wrestler-{$imageSlug}.jpg");
             MediaLink::query()->updateOrCreate(
                 [
                     'wrestler_profile_id' => $profile->id,
@@ -113,28 +153,9 @@ class DemoDataSeeder extends Seeder
                 ],
                 [
                     'media_type' => 'photo',
-                    'url' => $imageUrl,
+                    'url' => $this->frontendAssetUrl("/seed/wrestlers/wrestler-{$imageSlug}.jpg"),
                 ]
             );
-
-            // Second hero photo for a few demo profiles so the public carousel is visible.
-            $gallerySecond = [
-                0 => 'rex-holloway',
-                1 => 'nyx-kasai',
-                2 => 'brick-calloway',
-            ];
-            if (isset($gallerySecond[count($profiles)])) {
-                MediaLink::query()->updateOrCreate(
-                    [
-                        'wrestler_profile_id' => $profile->id,
-                        'sort_order' => 1,
-                    ],
-                    [
-                        'media_type' => 'photo',
-                        'url' => $this->frontendAssetUrl('/seed/wrestlers/wrestler-'.$gallerySecond[count($profiles)].'.jpg'),
-                    ]
-                );
-            }
 
             $profiles[] = $profile;
         }
@@ -147,16 +168,8 @@ class DemoDataSeeder extends Seeder
      */
     private function seedPromotions(): array
     {
-        $rows = [
-            // [name, email, city, state, description, imageSlug]
-            ['Apex Combat Wrestling', 'bookings@apexcombat.local', 'Las Vegas', 'NV', 'Premier west-coast independent. Quarterly stadium shows.', 'apex-combat'],
-            ['Ironbound Pro Wrestling', 'office@ironbound.local', 'Brooklyn', 'NY', 'East-coast hardcore-leaning indie since 2019.', 'ironbound'],
-            ['Lone Star Throwdown', 'staff@lonestar.local', 'Austin', 'TX', 'Texas-based southern style promotion.', 'lone-star'],
-            ['Nexus Global Wrestling', 'nexus@nexusgw.local', 'Chicago', 'IL', 'Midwest-grown promotion with TV distribution deals.', 'nexus'],
-        ];
-
         $profiles = [];
-        foreach ($rows as [$name, $email, $city, $state, $description, $imageSlug]) {
+        foreach ($this->promotionCatalog() as [$name, $email, $city, $state, $description, $imageSlug]) {
             $user = User::query()->firstOrCreate(
                 ['email' => $email],
                 [
@@ -207,24 +220,17 @@ class DemoDataSeeder extends Seeder
             0 => [
                 ['Winter Warfront', 14, 'Apex Arena', 'Las Vegas', 'NV'],
                 ['Genesis: Retribution', 35, 'Apex Arena', 'Las Vegas', 'NV'],
-                ['Mojave Mayhem', 60, 'Sandstorm Auditorium', 'Phoenix', 'AZ'],
             ],
             1 => [
                 ['Steel Cage Carnage', 21, 'Brooklyn Brawl Hall', 'Brooklyn', 'NY'],
-                ['Ironbound Anniversary', 49, 'Iron Forge Arena', 'Newark', 'NJ'],
-            ],
-            2 => [
-                ['Texas Turmoil', 18, 'Lone Star Coliseum', 'Austin', 'TX'],
-                ['Bourbon &amp; Brass', 42, 'Bayou Arena', 'New Orleans', 'LA'],
-            ],
-            3 => [
-                ['Nexus Showdown', 28, 'Midwest Dome', 'Chicago', 'IL'],
-                ['Heartland Heatwave', 70, 'Heartland Field House', 'Indianapolis', 'IN'],
             ],
         ];
 
         $events = [];
         foreach ($catalog as $i => $shows) {
+            if (! isset($promotions[$i])) {
+                continue;
+            }
             foreach ($shows as [$name, $days, $venue, $city, $state]) {
                 $events[] = Event::query()->updateOrCreate(
                     [
@@ -257,19 +263,12 @@ class DemoDataSeeder extends Seeder
             // wrestler index => list of [media_type, url]
             0 => [
                 ['video_youtube', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'],
-                ['video_youtube', 'https://www.youtube.com/watch?v=9bZkp7q19f0'],
             ],
             1 => [
                 ['video_youtube', 'https://www.youtube.com/watch?v=jNQXAC9IVRw'],
             ],
             2 => [
                 ['video_vimeo', 'https://vimeo.com/76979871'],
-            ],
-            5 => [
-                ['video_youtube', 'https://www.youtube.com/watch?v=kJQP7kiw5Fk'],
-            ],
-            7 => [
-                ['video_youtube', 'https://www.youtube.com/watch?v=hT_nvWreIhg'],
             ],
         ];
 
@@ -321,26 +320,23 @@ class DemoDataSeeder extends Seeder
      */
     private function seedSubmissions(array $events, array $wrestlers): array
     {
-        // Curated assignments so the same wrestler can show up across multiple promotions.
+        // Curated assignments so every wrestler shows up at least once and
+        // every event has at least one submission. Indices map into the
+        // smaller 3-wrestler / 3-event catalog.
         $assignments = [
             // [eventIndex, wrestlerIndex, status, note]
             [0, 0, SubmissionStatus::Booked, 'Confirmed for main event slot.'],
             [0, 1, SubmissionStatus::Accepted, 'Available, awaiting contract.'],
-            [0, 4, SubmissionStatus::Submitted, 'Open to a tag spot.'],
-            [1, 5, SubmissionStatus::Booked, 'Locked in, hardcore match.'],
-            [1, 7, SubmissionStatus::Submitted, 'Pitching a Phoenix vs Storm angle.'],
-            [2, 3, SubmissionStatus::OfferSent, 'Holding date, finalising rate.'],
-            [3, 2, SubmissionStatus::Booked, 'Lucha showcase confirmed.'],
-            [4, 6, SubmissionStatus::Submitted, 'First-time submission to Ironbound.'],
-            [5, 0, SubmissionStatus::Booked, 'Top guy back home in Texas.'],
-            [6, 7, SubmissionStatus::Reviewing, 'Promotion still finalising card.'],
-            [7, 4, SubmissionStatus::Booked, 'Strong-style spotlight match.'],
-            [8, 1, SubmissionStatus::Submitted, 'Trying out Heartland route.'],
+            [1, 2, SubmissionStatus::Submitted, 'Pitching a lucha showcase.'],
+            [2, 0, SubmissionStatus::Booked, 'Hardcore main event, east coast run.'],
         ];
 
         $submissions = [];
         foreach ($assignments as [$eventIdx, $wrestlerIdx, $status, $note]) {
-            $sub = Submission::query()->updateOrCreate(
+            if (! isset($events[$eventIdx], $wrestlers[$wrestlerIdx])) {
+                continue;
+            }
+            $submissions[] = Submission::query()->updateOrCreate(
                 [
                     'event_id' => $events[$eventIdx]->id,
                     'wrestler_profile_id' => $wrestlers[$wrestlerIdx]->id,
@@ -350,7 +346,6 @@ class DemoDataSeeder extends Seeder
                     'note' => $note,
                 ]
             );
-            $submissions[] = $sub;
         }
 
         return $submissions;
@@ -372,12 +367,9 @@ class DemoDataSeeder extends Seeder
         // Spread bookings across statuses for realistic dashboards.
         $statusPlan = [
             BookingStatus::Completed,
-            BookingStatus::Completed,
-            BookingStatus::InProgress,
             BookingStatus::Confirmed,
-            BookingStatus::Pending,
         ];
-        $rates = [120000, 150000, 180000, 95000, 220000];
+        $rates = [150000, 95000];
 
         $bookings = [];
         foreach ($bookedSubs as $i => $sub) {
@@ -414,8 +406,6 @@ class DemoDataSeeder extends Seeder
         $reviewTexts = [
             'A consummate professional. Hit every spot, pulled a real reaction. Booking again.',
             'Showed up early, helped lay out the match, locker room loved them. Top tier.',
-            'Crowd ate it up. Solid mic work, sharp psychology. Would headline again without hesitation.',
-            'Reliable from contract to bell. Big asset for the card.',
         ];
 
         $i = 0;
@@ -471,7 +461,6 @@ class DemoDataSeeder extends Seeder
                 ]
             );
 
-            // Skip if we already populated messages.
             if ($conv->messages()->exists()) {
                 continue;
             }
@@ -493,6 +482,28 @@ class DemoDataSeeder extends Seeder
                     'updated_at' => now()->subHours(48 - ($idx * 8)),
                 ])->save();
             }
+        }
+    }
+
+    /**
+     * Delete any leftover demo accounts (emails on the `@ringlink.local`
+     * domain) that are not part of the curated catalog. FKs cascade on
+     * user delete, so the profile + media + submissions + bookings +
+     * reviews + conversations all disappear in one shot.
+     */
+    private function pruneStaleDemoAccounts(): void
+    {
+        $keep = array_merge($this->curatedWrestlerEmails(), $this->curatedPromotionEmails());
+
+        $stale = User::query()
+            ->where('email', 'like', '%@ringlink.local')
+            ->whereIn('role', [UserRole::Wrestler, UserRole::Promotion])
+            ->whereNotIn('email', $keep)
+            ->get();
+
+        foreach ($stale as $user) {
+            $this->command?->info("Pruning stale demo account: {$user->email}");
+            $user->forceDelete();
         }
     }
 
