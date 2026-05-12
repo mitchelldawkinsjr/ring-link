@@ -17,16 +17,39 @@ final class ConversationController extends Controller
     {
         $user = $request->user();
         $items = Conversation::query()
-            ->with(['booking', 'messages' => fn ($q) => $q->latest()->limit(1)])
-            ->orderByDesc('id')
+            ->with([
+                'booking.promotionProfile:id,user_id,promotion_name',
+                'booking.wrestlerProfile:id,user_id,ring_name',
+                'wrestlerProfile:id,user_id,ring_name',
+                'promotionProfile:id,user_id,promotion_name',
+                'messages' => fn ($q) => $q->latest()->limit(1),
+            ])
+            ->orderByDesc('updated_at')
             ->get()
             ->filter(fn (Conversation $c) => in_array($user->id, $c->participantUserIds(), true));
 
-        return ApiEnvelope::json($items->values()->map(fn (Conversation $c) => [
-            'id' => $c->id,
-            'booking_id' => $c->booking_id,
-            'last_message' => $c->messages->first()?->body,
-        ])->all());
+        return ApiEnvelope::json($items->values()->map(function (Conversation $c) {
+            $wrestler = $c->wrestlerProfile ?? $c->booking?->wrestlerProfile;
+            $promotion = $c->promotionProfile ?? $c->booking?->promotionProfile;
+            $lastMessage = $c->messages->first();
+
+            return [
+                'id' => $c->id,
+                'booking_id' => $c->booking_id,
+                'wrestler_profile' => $wrestler ? [
+                    'id' => $wrestler->id,
+                    'ring_name' => $wrestler->ring_name,
+                ] : null,
+                'promotion_profile' => $promotion ? [
+                    'id' => $promotion->id,
+                    'promotion_name' => $promotion->promotion_name,
+                ] : null,
+                'last_message' => $lastMessage?->body,
+                'last_message_at' => $lastMessage?->created_at?->toIso8601String()
+                    ?? $c->updated_at?->toIso8601String(),
+                'unread_count' => 0,
+            ];
+        })->all());
     }
 
     public function store(Request $request): JsonResponse
@@ -56,11 +79,17 @@ final class ConversationController extends Controller
             if ($request->user()->wrestlerProfile?->id !== $wId && $request->user()->promotionProfile?->id !== $pId) {
                 abort(403);
             }
-            $conversation = Conversation::query()->create([
-                'booking_id' => null,
-                'wrestler_profile_id' => $wId,
-                'promotion_profile_id' => $pId,
-            ]);
+            // Reuse an existing direct thread between the same wrestler+promotion
+            // pair if one is already open, so repeat "Message" clicks don't
+            // spawn duplicate inbox rows.
+            $conversation = Conversation::query()->firstOrCreate(
+                [
+                    'wrestler_profile_id' => $wId,
+                    'promotion_profile_id' => $pId,
+                    'booking_id' => null,
+                ],
+                []
+            );
         }
 
         return ApiEnvelope::json(['id' => $conversation->id], [], 'Created', 201);

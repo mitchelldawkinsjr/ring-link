@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageShell } from "@/components/page-shell";
 import { GlassCard } from "@/components/glass-card";
@@ -13,9 +14,10 @@ type Conversation = {
   id: number;
   subject?: string | null;
   last_message_at?: string | null;
+  last_message?: string | null;
   unread_count?: number;
-  promotion_profile?: { legal_name?: string | null } | null;
-  wrestler_profile?: { ring_name?: string | null } | null;
+  promotion_profile?: { id?: number; promotion_name?: string | null } | null;
+  wrestler_profile?: { id?: number; ring_name?: string | null } | null;
 };
 
 type Message = {
@@ -38,10 +40,16 @@ function relativeTime(iso?: string | null) {
   return `${d}d`;
 }
 
-export default function MessagesPage() {
+function MessagesInner() {
   const user = useAuthStore((s) => s.user);
+  const searchParams = useSearchParams();
+  const requestedId = (() => {
+    const raw = searchParams?.get("conversation");
+    const n = raw ? Number(raw) : NaN;
+    return Number.isFinite(n) && n > 0 ? n : null;
+  })();
   const qc = useQueryClient();
-  const [activeId, setActiveId] = useState<number | null>(null);
+  const [activeId, setActiveId] = useState<number | null>(requestedId);
   const [draft, setDraft] = useState("");
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -53,11 +61,17 @@ export default function MessagesPage() {
 
   const list = useMemo<Conversation[]>(() => conversations.data ?? [], [conversations.data]);
 
+  // Honour the `?conversation=<id>` deep-link as long as the user has access
+  // to that thread; otherwise fall back to the most recent one.
   useEffect(() => {
-    if (!activeId && list.length > 0) {
+    if (list.length === 0) return;
+    if (activeId && list.some((c) => c.id === activeId)) return;
+    if (requestedId && list.some((c) => c.id === requestedId)) {
+      setActiveId(requestedId);
+    } else if (!activeId) {
       setActiveId(list[0].id);
     }
-  }, [activeId, list]);
+  }, [activeId, list, requestedId]);
 
   const messages = useQuery({
     queryKey: ["messages", activeId],
@@ -90,7 +104,7 @@ export default function MessagesPage() {
   const counterpartName = active
     ? user?.role === "promotion"
       ? active.wrestler_profile?.ring_name ?? "Talent"
-      : active.promotion_profile?.legal_name ?? "Promoter"
+      : active.promotion_profile?.promotion_name ?? "Promoter"
     : "—";
 
   if (!user) {
@@ -142,7 +156,7 @@ export default function MessagesPage() {
                   const name =
                     user.role === "promotion"
                       ? c.wrestler_profile?.ring_name ?? "Talent"
-                      : c.promotion_profile?.legal_name ?? "Promoter";
+                      : c.promotion_profile?.promotion_name ?? "Promoter";
                   return (
                     <button
                       key={c.id}
@@ -277,5 +291,19 @@ export default function MessagesPage() {
         </div>
       </div>
     </PageShell>
+  );
+}
+
+export default function MessagesPage() {
+  return (
+    <Suspense
+      fallback={
+        <PageShell className="px-margin-mobile pt-12 md:px-margin-desktop">
+          <p className="mx-auto max-w-md font-body text-body-md text-on-surface-variant">Loading messages…</p>
+        </PageShell>
+      }
+    >
+      <MessagesInner />
+    </Suspense>
   );
 }

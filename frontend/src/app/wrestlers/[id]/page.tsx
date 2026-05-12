@@ -8,6 +8,7 @@ import { GlassCard } from "@/components/glass-card";
 import { Icon } from "@/components/icon";
 import { ProfileHeroCarousel } from "@/components/profile-hero-carousel";
 import { VideoLightbox } from "@/components/video-lightbox";
+import { MessageWrestlerControl } from "@/components/message-wrestler-control";
 import { apiFetch } from "@/lib/api";
 import { parseVideoUrl } from "@/lib/video-embed";
 
@@ -413,17 +414,11 @@ export default function WrestlerPublicProfilePage({
               ) : null}
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/login" className="btn-primary inline-flex items-center gap-2">
-                  <Icon name="bolt" size={16} filled />
-                  Book {data.ring_name.split(" ")[0]}
-                </Link>
-                <Link
-                  href="/login"
-                  className="inline-flex items-center gap-2 rounded-lg border border-secondary px-5 py-3 font-body text-label-bold uppercase tracking-[0.05em] text-secondary transition hover:bg-secondary/10"
-                >
-                  <Icon name="mail" size={16} />
-                  Message
-                </Link>
+                <MessageWrestlerControl
+                  wrestlerProfileId={data.id}
+                  wrestlerFirstName={data.ring_name.split(" ")[0]}
+                  loginRedirectPath={`/wrestlers/${data.id}`}
+                />
               </div>
 
               <SocialLinks links={data.social_links} />

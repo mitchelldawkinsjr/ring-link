@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { PageShell } from "@/components/page-shell";
 import { GlassCard } from "@/components/glass-card";
 import { Icon } from "@/components/icon";
@@ -27,9 +27,11 @@ function defaultAfterLogin(role: "wrestler" | "promotion" | "admin"): string {
   return "/w/dashboard";
 }
 
-export default function LoginPage() {
+function LoginInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const setSession = useAuthStore((s) => s.setSession);
+  const currentUser = useAuthStore((s) => s.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -37,9 +39,17 @@ export default function LoginPage() {
   const [nextPath, setNextPath] = useState<string | null>(null);
 
   useEffect(() => {
-    const raw = new URLSearchParams(window.location.search).get("next");
+    const raw = searchParams?.get("next") ?? null;
     if (raw && raw.startsWith("/") && !raw.startsWith("//")) setNextPath(raw);
-  }, []);
+  }, [searchParams]);
+
+  // Already signed in? Don't dead-end at the form — bounce to next/dashboard.
+  useEffect(() => {
+    if (!currentUser) return;
+    const raw = searchParams?.get("next") ?? null;
+    const safeNext = raw && raw.startsWith("/") && !raw.startsWith("//") ? raw : null;
+    router.replace(safeNext ?? defaultAfterLogin(currentUser.role));
+  }, [currentUser, router, searchParams]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -125,5 +135,19 @@ export default function LoginPage() {
         </p>
       </div>
     </PageShell>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <PageShell className="min-h-[calc(100dvh-4rem)] px-margin-mobile pb-16 pt-12 md:px-margin-desktop">
+          <p className="mx-auto max-w-md font-body text-body-md text-on-surface-variant">Loading…</p>
+        </PageShell>
+      }
+    >
+      <LoginInner />
+    </Suspense>
   );
 }
