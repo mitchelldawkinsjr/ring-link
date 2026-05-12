@@ -115,6 +115,14 @@ jobs:
             echo "==> Bringing the stack up"
             docker compose -f docker-compose.prod.yml up -d --remove-orphans
 
+            # rsync atomically swaps file inodes when it updates
+            # .docker/nginx/prod-api.conf, but our nginx container bind-mounts
+            # the *file* rather than its parent dir, so it keeps holding the
+            # pre-deploy inode. Always reload nginx after `up -d` so config
+            # changes (and the FPM upstream's new container IP) are picked up.
+            echo "==> Reloading ringlink-nginx so config changes apply"
+            docker compose -f docker-compose.prod.yml restart nginx || true
+
             echo "==> Waiting for app container"
             sleep 12
 

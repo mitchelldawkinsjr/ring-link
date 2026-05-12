@@ -11,6 +11,7 @@ use App\Models\WrestlerProfile;
 use Aws\S3\S3Client;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -143,7 +144,7 @@ final class MediaController extends Controller
             && config("filesystems.disks.$configuredDisk.key");
         $disk = $useCloud ? $configuredDisk : 'public';
 
-        /** @var \Illuminate\Http\UploadedFile $file */
+        /** @var UploadedFile $file */
         $file = $request->file('file');
         $ext = strtolower($file->getClientOriginalExtension() ?: $file->guessExtension() ?: 'jpg');
         $folder = 'wrestlers/'.$wrestler->id;

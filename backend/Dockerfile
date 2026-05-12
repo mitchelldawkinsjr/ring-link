@@ -12,6 +12,10 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
+# Runtime tunables (upload limits + memory). Drop-ins under conf.d are
+# loaded in lexical order; the `zz-` prefix wins over the stock php.ini.
+COPY .docker/php/uploads.ini /usr/local/etc/php/conf.d/zz-uploads.ini
+
 # Install PHP deps first for better layer caching.
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --prefer-dist --no-interaction --no-scripts --no-autoloader
