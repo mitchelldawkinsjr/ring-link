@@ -209,6 +209,147 @@ function AddVideoForm({ onAdded }: { onAdded: () => void }) {
   );
 }
 
+// ─── Photo gallery ────────────────────────────────────────────────────────────
+
+function PhotoGallerySection({ wrestlerProfileId }: { wrestlerProfileId: number }) {
+  const qc = useQueryClient();
+  const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
+  void wrestlerProfileId;
+
+  const { data: mediaList, isLoading } = useQuery({
+    queryKey: ["my-media", wrestlerProfileId],
+    queryFn: async () => {
+      const res = await apiFetch<MediaLink[]>("/wrestler/media");
+      return res.data ?? [];
+    },
+  });
+
+  const photos = (mediaList ?? [])
+    .filter((m) => m.media_type === "photo" || !m.media_type.startsWith("video"))
+    .sort((a, b) => a.sort_order - b.sort_order);
+
+  const deleteMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiFetch(`/media/${id}`, { method: "DELETE" });
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["my-media"] }),
+  });
+
+  async function handleFile(file: File) {
+    setError("");
+    if (!file.type.startsWith("image/")) {
+      setError("Please choose an image file (jpg, png, webp, or gif).");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setError("Image must be 10 MB or smaller.");
+      return;
+    }
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      await apiFetch("/media/upload", { method: "POST", body: fd });
+      qc.invalidateQueries({ queryKey: ["my-media"] });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  return (
+    <GlassCard className="p-6 mt-6">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Icon name="photo_library" size={22} className="text-primary" filled />
+          <h2 className="font-headline text-2xl text-on-surface">Photos</h2>
+        </div>
+        <span className="font-body text-sm text-on-surface-variant">
+          {photos.length} {photos.length === 1 ? "photo" : "photos"}
+        </span>
+      </div>
+      <p className="mt-1 font-body text-sm text-on-surface-variant">
+        Your first photo is the hero on your public profile and on the talent grid.
+        JPG, PNG, WebP, or GIF up to 10 MB.
+      </p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <label className="btn-primary inline-flex cursor-pointer items-center gap-2 text-sm">
+          <Icon name="upload" size={16} />
+          {uploading ? "Uploading…" : photos.length === 0 ? "Upload photo" : "Add another"}
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            className="hidden"
+            disabled={uploading}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) handleFile(file);
+              e.target.value = "";
+            }}
+          />
+        </label>
+        {error && (
+          <p role="alert" className="font-body text-sm text-error">
+            {error}
+          </p>
+        )}
+      </div>
+
+      {isLoading ? (
+        <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="aspect-square animate-pulse rounded-xl bg-surface-container-high" />
+          ))}
+        </div>
+      ) : photos.length === 0 ? (
+        <div className="mt-8 flex flex-col items-center gap-3 py-8 text-center text-on-surface-variant">
+          <Icon name="add_a_photo" size={44} className="opacity-30" />
+          <p className="font-body text-sm">
+            No photos yet — upload a hero shot to bring your profile to life.
+          </p>
+        </div>
+      ) : (
+        <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {photos.map((m, idx) => (
+            <div
+              key={m.id}
+              className="group relative overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container"
+            >
+              <div className="relative aspect-square w-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={m.url}
+                  alt={idx === 0 ? "Primary profile photo" : `Photo ${idx + 1}`}
+                  className="h-full w-full object-cover"
+                />
+                {idx === 0 && (
+                  <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded bg-primary/90 px-2 py-0.5 font-body text-[10px] font-bold uppercase tracking-widest text-on-primary">
+                    <Icon name="star" size={12} filled /> Primary
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (confirm("Remove this photo?")) deleteMutation.mutate(m.id);
+                  }}
+                  disabled={deleteMutation.isPending}
+                  aria-label="Remove photo"
+                  className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition group-hover:opacity-100 hover:bg-error focus:opacity-100 disabled:opacity-40"
+                >
+                  <Icon name="delete" size={16} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </GlassCard>
+  );
+}
+
 function VideoLibrarySection({ wrestlerProfileId }: { wrestlerProfileId: number }) {
   const qc = useQueryClient();
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
@@ -764,13 +905,16 @@ export default function WrestlerProfilePage() {
           </div>
         </div>
 
-        {/* Video Library */}
+        {/* Photo gallery + Video library */}
         {profileExists ? (
-          <VideoLibrarySection wrestlerProfileId={user.wrestler_profile_id!} />
+          <>
+            <PhotoGallerySection wrestlerProfileId={user.wrestler_profile_id!} />
+            <VideoLibrarySection wrestlerProfileId={user.wrestler_profile_id!} />
+          </>
         ) : (
           <GlassCard className="mt-6 p-6 text-center text-on-surface-variant">
-            <Icon name="video_library" size={32} className="mx-auto opacity-30" />
-            <p className="mt-2 font-body text-sm">Save your profile first to unlock the video library.</p>
+            <Icon name="photo_library" size={32} className="mx-auto opacity-30" />
+            <p className="mt-2 font-body text-sm">Save your profile first to unlock photo &amp; video uploads.</p>
           </GlassCard>
         )}
 

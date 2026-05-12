@@ -117,6 +117,72 @@ final class MediaController extends Controller
         ], [], 'Created', 201);
     }
 
+    /**
+     * Direct server-side photo upload for the authenticated wrestler.
+     *
+     * Stores to R2/S3 if those creds are configured, otherwise to the
+     * `public` local disk (served via `storage:link` -> /storage/...).
+     * Returns the created MediaLink row.
+     *
+     * Sort_order convention:
+     *  - photos:   0..9   (0 is the primary hero image)
+     *  - videos:   10+    (managed by storeVideo)
+     */
+    public function upload(Request $request): JsonResponse
+    {
+        $wrestler = $request->user()->wrestlerProfile;
+        abort_if(! $wrestler, 403);
+
+        $data = $request->validate([
+            'file' => ['required', 'file', 'image', 'mimes:jpeg,jpg,png,webp,gif', 'max:10240'],
+            'sort_order' => ['nullable', 'integer', 'min:0', 'max:9'],
+        ]);
+
+        $configuredDisk = (string) config('filesystems.upload_disk', 'public');
+        $useCloud = in_array($configuredDisk, ['r2', 's3'], true)
+            && config("filesystems.disks.$configuredDisk.key");
+        $disk = $useCloud ? $configuredDisk : 'public';
+
+        /** @var \Illuminate\Http\UploadedFile $file */
+        $file = $request->file('file');
+        $ext = strtolower($file->getClientOriginalExtension() ?: $file->guessExtension() ?: 'jpg');
+        $folder = 'wrestlers/'.$wrestler->id;
+        $filename = Str::uuid()->toString().'.'.$ext;
+        $key = $folder.'/'.$filename;
+
+        Storage::disk($disk)->putFileAs($folder, $file, $filename, [
+            'visibility' => 'public',
+        ]);
+
+        $url = $useCloud
+            ? rtrim((string) config("filesystems.disks.$disk.url"), '/').'/'.$key
+            : Storage::disk('public')->url($key);
+
+        // If no explicit sort_order: append after existing photos but never
+        // collide with videos. Cap at 9.
+        $sortOrder = $data['sort_order'] ?? null;
+        if ($sortOrder === null) {
+            $nextPhoto = (int) $wrestler->mediaLinks()
+                ->where('sort_order', '<', 10)
+                ->max('sort_order');
+            $sortOrder = min(9, $nextPhoto + 1);
+        }
+
+        $media = MediaLink::query()->create([
+            'wrestler_profile_id' => $wrestler->id,
+            'media_type' => 'photo',
+            'url' => $url,
+            'sort_order' => $sortOrder,
+        ]);
+
+        return ApiEnvelope::json([
+            'id' => $media->id,
+            'url' => $media->url,
+            'media_type' => $media->media_type,
+            'sort_order' => $media->sort_order,
+        ], [], 'Uploaded', 201);
+    }
+
     public function destroy(Request $request, MediaLink $mediaLink): JsonResponse
     {
         $this->authorize('manage', $mediaLink);

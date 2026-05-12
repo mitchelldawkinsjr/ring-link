@@ -61,6 +61,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
     Route::get('/wrestlers/my-media', [MediaController::class, 'listOwn']);
     Route::post('/media/upload-intent', [MediaController::class, 'uploadIntent']);
+    Route::post('/media/upload', [MediaController::class, 'upload']);
     Route::post('/media/confirm', [MediaController::class, 'confirm']);
     Route::delete('/media/{mediaLink}', [MediaController::class, 'destroy']);
     Route::patch('/wrestlers/{wrestlerProfile}/media/order', [MediaController::class, 'reorder']);
